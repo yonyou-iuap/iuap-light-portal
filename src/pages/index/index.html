@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <% for (var chunk in htmlWebpackPlugin.files.css) { %>
+    <link href="<%=htmlWebpackPlugin.files.css[chunk] %>" rel="stylesheet">
+    <% } %>
+
+</head>
+<body>
+<div id="app"></div>
+<script>
+    window.isOpenTab = true;
+    contextRoot = 'wbalone'
+</script>
+
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
+</body>
+</html>

@@ -1,0 +1,27 @@
+const zh_TW = {
+    'components.searchPanel.title': "查詢與篩選",
+    'components.searchPanel.open':"展開",
+    'components.searchPanel.fold':"收起",
+    'components.searchPanel.empty':"清空",
+    'components.searchPanel.search':"查詢",
+    'intl.title': "平臺-督辦任務主表國家",
+    'intl.button.create': "新增",
+    'intl.button.submit':"提交",
+    'intl.button.recovery':"回收",
+    'intl.button.print': "打印",
+    'intl.button.templateDownload': "模版下載",
+    'intl.button.import': "導入",
+    'intl.button.export': "導出",
+    'tabs.header.message': "消息中心",
+    'tabs.header.task':"任務中心",
+    'tabs.header.max':"最大化",
+    'tabs.header.signout':"註銷",
+    'tabs.sidebar.scplaceholder':"搜索功能節點",
+    'tabs.sidebar.nodate':"未找到功能節點",
+    'tabs.sidebar.rollUp':"通過滾動鼠標來移動功能",
+    'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
+    'tabs.main.title':'用友iuap開發平台',
+    'header.search.placeholder': '應用查詢',
+    'tabs.show.more':'更多'
+}
+export default zh_TW;
