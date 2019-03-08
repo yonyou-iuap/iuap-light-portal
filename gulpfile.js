@@ -4,7 +4,7 @@ var zip = require('gulp-zip');
 var process = require('child_process');
 var fs = require('fs');
 
-const PACKAGE_NAME = "light_frame_fe";
+const PACKAGE_NAME = "lightportal";
 const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 
 // maven 配置信息
