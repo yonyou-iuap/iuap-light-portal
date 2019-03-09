@@ -24,7 +24,7 @@ const publishConfig = {
  * @return {[type]}           [description]
  */
 gulp.task("package", function(){
-  return gulp.src('./build/light_frame_fe/**')
+  return gulp.src('./build/lightportal/**')
       .pipe(zip(PACKAGE_WAR_NAME))
       .pipe(gulp.dest('./'));
 
