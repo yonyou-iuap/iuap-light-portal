@@ -63,3 +63,5 @@ dist.*
 
 .idea
 package-lock.json
+.cache
+light_frame_fe.war

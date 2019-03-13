@@ -4,6 +4,7 @@ import request from "utils/request";
 //定义接口地址
 const URL = {
     "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/newSidebarList?r=`+Math.random(),
+    "GET_MENU_PORTAL":  `${GROBAL_HTTP_CTX}/appmenumgr/listSidebarByApportalCode?r=`+Math.random(),
     "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list?r=`+Math.random(),
     "GET_UNREADMSG":`/iuap-saas-message-center/message/getUnReadMsg?r=`+Math.random(),
     "GET_WEBPUSHINFO":`${GROBAL_HTTP_CTX}/webpush/getInfo?r=`+Math.random(),
@@ -18,7 +19,13 @@ const URL = {
  * @param {*} params
  */
 export const getList = (params) => {
-    let url =URL.GET_MENU+'?1=1';
+    let portalId = `${GROBAL_PORTAL_ID}`;
+    let url;
+    if(portalId === 'wbalone'){
+        url =URL.GET_MENU+'&1=1';
+    }else{
+        url =URL.GET_MENU_PORTAL+'&apportalCode=' + portalId;
+    }
     return request(url, {
         method: "get"
     });

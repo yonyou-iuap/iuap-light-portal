@@ -32,7 +32,7 @@ class App extends Component {
                 var canOpen = window.localStorage.getItem("canOpen");
                 if(canOpen === "true" || canOpen === null) {
                     window.localStorage.setItem("canOpen",false);
-                    window.open(`${GROBAL_URL_CTX}/index.html`, "_self");
+                    window.open(`/${GROBAL_PORTAL_ID}/index.html`, "_self");
                 }
             }
         }, 1000);
