@@ -225,7 +225,7 @@ export default {
 
                 //成功登陆
                 window.localStorage.setItem("canOpen","true");
-                window.open(`${GROBAL_HTTP_CTX}/index.html`, "_self");
+                window.open(`${GROBAL_PORTAL_ID}/index.html`, "_self");
             }
         },
         /**
