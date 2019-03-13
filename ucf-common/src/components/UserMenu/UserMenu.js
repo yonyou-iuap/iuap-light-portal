@@ -67,7 +67,7 @@ class UserMenus extends Component {
 
         var self = this;
         let {intl} = this.props;
-
+        let portalId = `${GROBAL_PORTAL_ID}`;
         return (
             <div mode="horizontal" onClick={(e) => self.handleClick(e)} className="dropdown header-right-dropdown" style={{ width: '100%' }}>
                 {<div className="header-right-info">
@@ -80,7 +80,7 @@ class UserMenus extends Component {
                     </div>
                 </div>}
                 <div className="header-right-applet-content">
-                  <div className="header-right-applet-list">
+                  <div className="header-right-applet-list" style={{display: portalId === 'wbalone'? '':'none' }}>
                     {
                       this.state.userMenus.map(function(item) {
                         return (
