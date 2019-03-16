@@ -38,8 +38,8 @@ module.exports = (env, argv) => {
         global_env: {
             'process.env.NODE_ENV': JSON.stringify("production"),
             GROBAL_HTTP_CTX: JSON.stringify("/wbalone"),
-            GROBAL_PORTAL_ID: JSON.stringify("iuap-light-portal"),
-            GROBAL_PACKAGE_NAME: JSON.stringify("iuap-light-portal"),
+            GROBAL_PORTAL_ID: JSON.stringify("lightportal"),
+            GROBAL_PACKAGE_NAME: JSON.stringify("lightportal"),
             GSP_CONTRACT: JSON.stringify("/gsp-contract"),
             GSP_ORDERS: JSON.stringify("/gsp-orders"),
             GSP_SUPPLIER: JSON.stringify("/gsp-supplier"),

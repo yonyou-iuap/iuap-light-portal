@@ -1,7 +1,7 @@
 {
-  "name": "typicalcase",
+  "name": "lightportal",
   "version": "1.0.0",
-  "description": "iuap 应用平台前端典型示例工程",
+  "description": "iuap 应用平台轻量门户",
   "main": "",
   "scripts": {
     "start": "ucf-scripts start --homepage=index.html",
