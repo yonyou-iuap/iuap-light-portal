@@ -97,7 +97,7 @@ class UserMenus extends Component {
                     }
                   </div>
                   <div className="header-right-applet-logout">
-                    <a ref="setting3" title={intl.formatMessage({id: 'tabs.header.signout'})}  value="logout" href={`${GROBAL_HTTP_CTX}/user/beflogout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i>{intl.formatMessage({id: 'tabs.header.signout'})} </a>
+                    <a ref="setting3" title={intl.formatMessage({id: 'tabs.header.signout'})}  value="logout" href={`${GROBAL_PORTAL_DD}/user/logout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i>{intl.formatMessage({id: 'tabs.header.signout'})} </a>
                   </div>
                 </div>
             </div>
