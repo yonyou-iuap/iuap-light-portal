@@ -68,6 +68,8 @@ class UserMenus extends Component {
         var self = this;
         let {intl} = this.props;
         let portalId = `${GROBAL_PORTAL_ID}`;
+        let h = GROBAL_PORTAL_CTX === 'wbalone'?`${GROBAL_PORTAL_CTX}/user/beflogout`:`${GROBAL_PORTAL_CTX}/user/logout`;
+        console.log(h)
         return (
             <div mode="horizontal" onClick={(e) => self.handleClick(e)} className="dropdown header-right-dropdown" style={{ width: '100%' }}>
                 {<div className="header-right-info">
@@ -97,7 +99,7 @@ class UserMenus extends Component {
                     }
                   </div>
                   <div className="header-right-applet-logout">
-                    <a ref="setting3" title={intl.formatMessage({id: 'tabs.header.signout'})}  value="logout" href={`${GROBAL_PORTAL_DD}/user/logout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i>{intl.formatMessage({id: 'tabs.header.signout'})} </a>
+                    <a ref="setting3" title={intl.formatMessage({id: 'tabs.header.signout'})}  value="logout" href={h}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i>{intl.formatMessage({id: 'tabs.header.signout'})} </a>
                   </div>
                 </div>
             </div>
