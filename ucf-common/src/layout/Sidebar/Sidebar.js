@@ -781,10 +781,16 @@ class App extends Component {
 
 
     }
+    barLeftClick = () => {
+      let {leftExpanded} = this.props;
+      actions.app.updateState({
+        leftExpanded: !leftExpanded
+      })
+    }
 
     render() {
         var self = this;
-        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,sideShowPosition} = this.props;
+        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,sideShowPosition,leftExpanded} = this.props;
         var isSeleted = submenuSelected;
         var menuSearch  = this.state.menuSearch;
         const sss = self.state.sss;
@@ -1103,7 +1109,10 @@ class App extends Component {
                 </div>
                 </Drawer>
             :<div className="left-side-bar sidebar-left">
-            <div className="left-side-bar-menu">
+            <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()}>
+            <span><Icon className=" uf uf-navmenu" /></span>
+            </div>
+            <div className={!leftExpanded?"left-side-bar-menu":"left-side-bar-menu left-side-bar-menu-expand"}>
                 {
                     menu.map(function (item,index1) {
                         let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";

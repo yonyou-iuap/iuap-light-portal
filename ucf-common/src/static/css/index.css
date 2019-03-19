@@ -27,6 +27,9 @@ body{
 .content.left-content {
   margin-left: 200px;
 }
+.content.left-content.left-content-expand {
+  margin-left: 50px;
+}
 .portalCol1{
 	padding-left: 0;
 	height: 100%;

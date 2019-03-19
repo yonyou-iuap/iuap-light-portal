@@ -180,7 +180,7 @@ class Tab extends Component {
     render() {
 
         var self = this;
-        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl} = this.props;
+        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded} = this.props;
         // let {tabsMore} = this.props;
         const moremenu=[];
         this.state.moreMenuList = [];
@@ -188,7 +188,7 @@ class Tab extends Component {
         // debugger;
         return (
 
-            <div id="portalTabs" className={"tabs ui-tabs-num-"+tabNum}>
+            <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
                 <div className="tabs-list-box">
                     {/*<span className="tabs-list-home">*/}
                     {/*<i className="qy-iconfont icon-tubiao-shouye"></i>*/}

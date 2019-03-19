@@ -30,7 +30,8 @@ export default {
         tabsMore: false,
         showHeader: true,
         maxed:false,
-        sideShowPosition: ''
+        sideShowPosition: '',
+        leftExpanded: false
     },
     reducers: {
         /**

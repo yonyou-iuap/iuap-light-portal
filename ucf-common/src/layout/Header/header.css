@@ -6,9 +6,10 @@
   background-repeat: no-repeat;
   position: relative;
 }
-.heeader-show {
+.header-show {
   display: flex;
 }
+
 .header-hide {
   display: none;
 }
@@ -45,7 +46,7 @@
   height:26px;
   position: relative;
   display: inline-block;
-  margin-left: 24px;
+  margin-left: 16px;
 }
 .header-left .header-search input {
   position: absolute;
@@ -342,4 +343,13 @@
 }
 .header-right-tenant-info #tenantname .icon-arrowdown {
   font-size: 16px;
+}
+.header-show-left{
+  margin-left: 200px;
+}
+.header-show-left-expand {
+  margin-left: 50px;
+}
+.header-left .header-svg-show {
+  display: none;
 }

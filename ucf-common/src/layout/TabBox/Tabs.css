@@ -343,3 +343,9 @@
   transform: translateY(-50%);
   left:-5px;
 }
+.tabs-show-left {
+  margin-left: 200px;
+}
+.tabs-show-left-expand {
+  margin-left: 50px;
+}

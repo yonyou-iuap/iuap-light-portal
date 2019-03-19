@@ -41,6 +41,13 @@ class App extends Component {
 
         };
         this.handleClick = this.handleClick.bind(this);
+        window.createTab = this.createTab.bind(this);
+        // createTab参数
+        // options = {
+        //     id: "sysmgr",
+        //     router: "/wbalone/index-view.html%2523sysmgr",
+        //     title: "管理中心"
+        // }
     }
     componentWillMount(){
         this.addFullScreenChangeEvent();
@@ -349,7 +356,7 @@ class App extends Component {
         let self = this;
 
         let {unreadMsg} = self.state;
-        let {expanded,menus,intl,maxed,showHeader} = this.props;
+        let {expanded,menus,intl,maxed,showHeader,sideShowPosition,leftExpanded} = this.props;
         let svgClick = self.svgClick;
         // let sideBarShow = self.props.sideBarShow;
         let headerRightOper = {
@@ -368,7 +375,7 @@ class App extends Component {
         // console.log(UserMenuObj);
 
         return (
-          <nav className={!showHeader?"header header-hide":"header header-show"} style={{backgroundImage: `url(${require("static/images/bg_topbar.jpg")})`}}>
+          <nav className={[!showHeader?"header header-hide":"header header-show", sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":''].join(" ")} style={{backgroundImage: `url(${require("static/images/bg_topbar.jpg")})`}}>
             <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
             <HeaderCenter/>
             <ConnectedHeaderRight  headerRightOper={headerRightOper} handleClick={self.handleClick.bind(this)} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>

@@ -70,7 +70,7 @@ class App extends Component {
     }
     render() {
       let self = this;
-        const {expanded,menus,current,showHeader,sideShowPosition} = this.props;
+        const {expanded,menus,current,showHeader,sideShowPosition,leftExpanded} = this.props;
         // let sideBarShow = this.state.sideBarShow;
         // let svgClick = self.svgClick;
         // className={sideBarShow?'sider-bar-show':'side-bar-hide'}
@@ -84,7 +84,7 @@ class App extends Component {
                     {/*加载Tab标签*/}
                     <ConnectedTabBox/>
 
-                    <div className={sideShowPosition==='left'?"content left-content":"content"}>
+                    <div className={[sideShowPosition==='left'?"content left-content":"content",leftExpanded?"left-content-expand":""].join(" ")}>
                         {
 
                             menus.map(function (item, index) {
