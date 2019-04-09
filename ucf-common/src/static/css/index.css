@@ -4,6 +4,10 @@ body{
 .active {
 	color: green;
 }
+.header-show-white .header-center>a>div {
+  background-image: url("../images/logo_light.svg");
+  background-repeat: no-repeat;
+}
 .route-content {
   overflow: hidden;
 }
@@ -713,14 +717,20 @@ body{
 }
 .portal-logo.zh_CN{
 	background-image: url("../images/logo_zh_CN.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .portal-logo.en_US{
 	background-image: url("../images/logo_en_US.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .portal-logo.zh_TW{
 	background-image: url("../images/logo_zh_TW.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 

@@ -2,7 +2,8 @@
  * Created by zhangjlt .
  */
 import React,{Component} from 'react';
-import {Navbar,Menu,Button,Con,Col,Tile,Icon} from 'tinper-bee';
+import {Navbar,Menu,Button,Con,Col,Tile,Icon,Select} from 'tinper-bee';
+const Option = Select.Option;
 import mirror, { connect,actions } from 'mirrorx';
 import * as api from "ucf-apps/index/src/service";
 
@@ -16,16 +17,22 @@ class Tenant extends Component {
         super(props);
         var self = this;
         this.state = {
-            tenant:[]
+          showTenant: false,
+            tenant:[],
+            tenantNameVal:''
         };
     }
 
     async componentDidMount(){
-
-        //调用 loadUserMenuList 请求数据
+      let _this = this;
+      this.clickOut(_this);
+        // 调用 loadUserMenuList 请求数据
         let res = processData(await api.getAllTenant());
+        if(!res) {
+          return;
+        }
         this.setState({
-            tenant: res.data
+            tenant: res.data || []
         });
     }
 
@@ -37,18 +44,53 @@ class Tenant extends Component {
         }
 
     }
+    tenantClick = () => {
+      let {showTenant} = this.state;
+      this.setState({
+        showTenant: !showTenant
+      })
+    }
+    clickOut = (self) => {
+        document.body.addEventListener('click', function(e){
+            //针对不同浏览器的解决方案
+            function matchesSelector(element, selector){
+                if(element.matches){
+                    return element.matches(selector);
+                } else if(element.matchesSelector){
+                    return element.matchesSelector(selector);
+                } else if(element.webkitMatchesSelector){
+                    return element.webkitMatchesSelector(selector);
+                } else if(element.msMatchesSelector){
+                    return element.msMatchesSelector(selector);
+                } else if(element.mozMatchesSelector){
+                    return element.mozMatchesSelector(selector);
+                } else if(element.oMatchesSelector){
+                    return element.oMatchesSelector(selector);
+                }
+            }
+            //匹配当前组件内的所有元素
+            if(matchesSelector(e.target,'.header-right *')){               
+                return;
+            }
+            self.setState({
+                showTenant:false
+            })
+        }, false);
+    }
     render() {
 
         var self = this;
         let  tenants  = this.state.tenant;
-
+        let {showTenant} = this.state;
+        let tenantNameVal = this.state.tenantNameVal;
         return (
-            tenants.length > 0? <div mode="horizontal"  className="header-right-tenant-info" style={{ width: '100%' }}>
-                    <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown">
-                        <span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}<i className="iconfont icon-arrowdown"></i> </span>
+            tenants.length > 0? <div mode="horizontal"  className={showTenant?"header-right-tenant-info header-right-tenant-info-focus":"header-right-tenant-info"} style={{ width: '100px' }}>
+                    <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" onClick={this.tenantClick}>
+                        {<span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>}
+                        {showTenant?<i className=" uf uf-gridcaretarrowup"></i>:<i className=" uf uf-treearrow-down"></i>}
                         {/*<span className="iconfont icon-arrowdown"></span>*/}
                     </a>
-                    <ul className="header-right-tenant-info-li">
+                    <ul className={showTenant?"header-right-tenant-info-li header-right-tenant-info-li-show":"header-right-tenant-info-li header-right-tenant-info-li-hide"} >
                     {
                         tenants.map(function (item) {
                             return (

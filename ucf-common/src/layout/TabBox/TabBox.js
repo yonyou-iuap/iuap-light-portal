@@ -8,6 +8,7 @@ import {Button,Con,Col,Tile,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 require('./Tabs.css');
+import {getCookie} from "utils";
 
 class Tab extends Component {
     constructor(props) {
@@ -29,9 +30,9 @@ class Tab extends Component {
     }
 
     setCurrent (id) {
-        // debugger;
         let morelist = this.state.moreMenuList;
         let menuProp = this.props.menus;
+        let {themeObj} = this.props;
         let list = [];
         let obj={};
         let moreFlag = false;
@@ -52,7 +53,7 @@ class Tab extends Component {
                 menuProp.splice(i,1);
               }
             }
-            menuProp.splice(9,0,obj);
+            menuProp.splice(themeObj.tabNum,0,obj);
           }
         }
 
@@ -164,11 +165,11 @@ class Tab extends Component {
     }
     // 页签更多的点击事件
     tabsMoreClick() {
+
       const {tabsMore} = this.props;
       actions.app.updateState({
           tabsMore: !tabsMore
       })
-      console.log(this.props);
     }
     //控制头部是否显示
     showHeaderClick() {
@@ -178,9 +179,12 @@ class Tab extends Component {
       })
     }
     render() {
-
+      let locale_serial = getCookie("locale_serial");
+      if(locale_serial == 1) {
+          locale_serial = "";
+      }
         var self = this;
-        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded} = this.props;
+        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded,themeObj} = this.props;
         // let {tabsMore} = this.props;
         const moremenu=[];
         this.state.moreMenuList = [];
@@ -188,7 +192,7 @@ class Tab extends Component {
         // debugger;
         return (
 
-            <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
+            <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,themeObj.sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
                 <div className="tabs-list-box">
                     {/*<span className="tabs-list-home">*/}
                     {/*<i className="qy-iconfont icon-tubiao-shouye"></i>*/}
@@ -199,17 +203,17 @@ class Tab extends Component {
                             menus.map(function (item,index) {
                                 var delIcon = index==0?'':(<i onClick={self.del.bind(this,item.id)} className="qy-iconfont icon-tubiao-guanbi x-close" key={item.router}></i>)
 
-                                var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item.title;
+                                var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item['title'+locale_serial];
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
-                                if(index >10) {
+                                if(index > themeObj.tabNum) {
                                   moremenu.push(item);
                                   self.state.moreMenuList = moremenu;
 
                                 } else {
                                   liDom = <li key={item.id} className={selected}>
-                                      <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item.title}>
+                                      <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item['title'+locale_serial]}>
                                           {homeIcon}
                                       </a>
                                       {delIcon}
@@ -221,12 +225,12 @@ class Tab extends Component {
                             })
                         }
                         {
-                          menus.length>11? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                          menus.length>(themeObj.tabNum+1)? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
                           {
                             moremenu.map(function(item1,index1){
                               return (
                                 <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
-                                    {item1.title}
+                                    {item1['title'+locale_serial]}
                                 </a></li>
                               )
                             })

@@ -1,21 +1,23 @@
-html body,html,body,html body #login_div{  
-  height: 100%;  
+html body,html,body,html body #login_div{
+  height: 100%;
   margin: 0px;
   padding: 0px;
   width: 100%;
 }
-input:-webkit-autofill, 
-textarea:-webkit-autofill, 
-select:-webkit-autofill { 
-     -webkit-box-shadow: 0 0 0 1000px white inset; 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+     -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 input[type=text]:focus, input[type=password]:focus, textarea:focus {
-    -webkit-box-shadow: 0 0 0 1000px white inset; 
+    -webkit-box-shadow: 0 0 0 1000px white inset;
 }
-.bg2{    
-  background-size:100% 100%;
+.bg2{
+  background-size:cover;
+  background-position: center;
   background-repeat: no-repeat;
   background-image: url("../images/bg2.jpg");
+
 }
 
 
@@ -25,7 +27,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   padding: 0px;
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat;  
+  background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 .login-main .login-top{
@@ -53,10 +55,10 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   border-left: 1px solid rgba(93,85,85,1);
   padding-left:15px;
 }
-.login-logo .logo-img{   
+.login-logo .logo-img{
   margin-top:10px;
   float:left;
-  padding-right:15px;   
+  padding-right:15px;
   width:130px;
   background-repeat: no-repeat;
   background-image: url("../images/logo.svg");
@@ -76,9 +78,9 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 
 .langcode-panel .login-lang{
   width:100%;
-  height:100%;    
+  height:100%;
 }
-.login-top .u-select .u-select-selection{    
+.login-top .u-select .u-select-selection{
   width:130px;
   height:34px;
   background:#fff;
@@ -129,8 +131,8 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 }
 .login-content .content-center{
   width: 35%;
-  height: 100%;  
-  position: relative;  
+  height: 100%;
+  position: relative;
 }
 .login-content .content-center>img{
   top: 50%;
@@ -157,7 +159,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   border:1px solid rgba(201,201,201,1);
   line-height: 100%;
   margin-left: auto;
-  margin-right: auto;    
+  margin-right: auto;
   padding-left:30px;
   padding-right:30px;
 }
@@ -171,10 +173,10 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   border-radius: 0px;
   background:rgba(255,255,255,1);
   border:0px;
-  border: 1px solid #D0D0D0;    
-  line-height: 40px;    
+  border: 1px solid #D0D0D0;
+  line-height: 40px;
 }
-.login-panel  .u-select .u-select-selection .u-select-selection-selected-value{ 
+.login-panel  .u-select .u-select-selection .u-select-selection-selected-value{
   height:40px;
   width:90%;
   padding:0px;
@@ -188,7 +190,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   padding-left: 7px;
 }
 
-.login-panel .text ,.login-panel .text:focus{    
+.login-panel .text ,.login-panel .text:focus{
   width:100%;
   padding:0px;
   padding-left: 15px;
@@ -221,13 +223,13 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   font-weight:400;
   color:rgba(239,4,4,1);
   text-align: center;
-  height:40px;
+  min-height:40px;
   line-height:40px;
 }
 
 .login-panel .login-btn{
   width:100%;
-  height:40px;  
+  height:40px;
 }
 .login-panel .login-btn .btn{
   margin:0;
@@ -438,7 +440,7 @@ div .modalSendMsg{
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66FFFFFF,endColorstr=#66FFFFFF);
  }
 .attention{
-  color:rgb(240, 135, 26);	
+  color:rgb(240, 135, 26);
   font-size:20px;
 }
 .close{

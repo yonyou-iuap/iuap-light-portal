@@ -1,10 +1,8 @@
 /**
  * 整个应用的入口，包含路由，数据管理加载
  */
-
+import '@babel/polyfill';
 import React, { Component } from "react";
-import 'core-js/es6/map';
-import 'core-js/es6/set';
 import logger from "redux-logger";
 import mirror, { render,Router } from "mirrorx";
 import MainLayout from "./layout";

@@ -13,7 +13,7 @@ import HeaderCenter from './HeaderCenter';
 import HeaderRight from './HeaderRight';
 import { processData } from "utils";
 import {ConnectedHeaderLeft} from 'ucf-apps/index/src/container';
-import {ConnectedHeaderRight} from 'ucf-apps/index/src/container';
+import {ConnectedHeaderRight,ConnectedHeaderCenter} from 'ucf-apps/index/src/container';
 
 // import headerImg from 'static/images/bg_topbar.jpeg';
 // const Header = Navbar.Header;
@@ -24,6 +24,7 @@ import {ConnectedHeaderRight} from 'ucf-apps/index/src/container';
 // const Collapse = Navbar.Collapse;
 // const Toggle = Navbar.Toggle;
 const Nav = Navbar.Nav;
+
 
 
 class App extends Component {
@@ -51,6 +52,9 @@ class App extends Component {
     }
     componentWillMount(){
         this.addFullScreenChangeEvent();
+        // let {themeObj} = this.props;
+        // this.themeFun(themeObj);
+        // actions.app.themeRequest();
     }
 
     async componentDidMount(){
@@ -102,7 +106,7 @@ class App extends Component {
         let {userMenu} = this.props;
         actions.app.updateState()
     }
-    handleClick(e,reload) {
+    handleClick(e,reload,item) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,intl} = this.props;
 
@@ -119,6 +123,22 @@ class App extends Component {
         // };
 
         function getDOm() {
+            if (!Element.prototype.matches) {
+                Element.prototype.matches = Element.prototype.msMatchesSelector || 
+                                        Element.prototype.webkitMatchesSelector;
+            }
+            
+            if (!Element.prototype.closest) {
+            Element.prototype.closest = function(s) {
+                var el = this;
+            
+                do {
+                if (el.matches(s)) return el;
+                el = el.parentElement || el.parentNode;
+                } while (el !== null && el.nodeType === 1);
+                return null;
+            };
+            }
             let tar = e.target || e.domEvent.target;
         if (!tar.tagName || tar.tagName !== 'A') {
             tar = tar.closest('a');
@@ -160,13 +180,17 @@ class App extends Component {
 
 
         let dom = tar;
-        let title = dom.getAttribute('name');
+        // let title = dom.getAttribute('name');
         let router =  dom.getAttribute('href');
-
-
+        // let title = dom.getAttribute('item');
 
         let options = {
-            title:title,
+            title:item.name,
+            title2:item.name2,
+            title3:item.name3,
+            title4:item.name4,
+            title5:item.name5,
+            title6:item.name6,
             router:router,
             id:value
         };
@@ -209,7 +233,6 @@ class App extends Component {
         this.createTab(options);
     }
     createTab (options,value) {
-
         var self = this;
         var {menus} = this.props;
 
@@ -351,12 +374,17 @@ class App extends Component {
       })
       // this.props.svgClick();
     }
+    themeChange = (val) => {
+      let {themeObj} = this.props;
+      localStorage.setItem('themeVal', val);
+      window.location.reload(true)
+    }
 
     render (){
         let self = this;
 
         let {unreadMsg} = self.state;
-        let {expanded,menus,intl,maxed,showHeader,sideShowPosition,leftExpanded} = this.props;
+        let {expanded,menus,intl,maxed,showHeader,leftExpanded,themeObj} = this.props;
         let svgClick = self.svgClick;
         // let sideBarShow = self.props.sideBarShow;
         let headerRightOper = {
@@ -364,6 +392,7 @@ class App extends Component {
           minifunc: self.minifunc,
           handleDefault: self.handleDefault,
           handleClick: self.handleClick,
+          themeChange: self.themeChange
         }
         var UserMenuObj = {
             formmaterUrl:self.formmaterUrl,
@@ -371,13 +400,11 @@ class App extends Component {
             handleDefault:self.handleDefault,
             intl:intl
         };
-
         // console.log(UserMenuObj);
-
         return (
-          <nav className={[!showHeader?"header header-hide":"header header-show", sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":''].join(" ")} style={{backgroundImage: `url(${require("static/images/bg_topbar.jpg")})`}}>
-            <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
-            <HeaderCenter/>
+          <nav className={[!showHeader?"header header-hide":"header header-show", themeObj.sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":'',themeObj.headerTheme==="dark"?"header-show-white":"header-show-dark"].join(" ")} style={{backgroundColor:themeObj.headerBgColor,backgroundImage: `url(${themeObj.headerBgImg})`}}>
+            <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})} headerRightOper={headerRightOper}/>
+            <ConnectedHeaderCenter />
             <ConnectedHeaderRight  headerRightOper={headerRightOper} handleClick={self.handleClick.bind(this)} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
           </nav>
         )

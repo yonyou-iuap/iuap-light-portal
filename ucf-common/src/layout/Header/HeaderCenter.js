@@ -7,10 +7,11 @@ class HeaderCenter extends Component {
         super(props);
     }
     render() {
+      let {themeObj} = this.props;
         return (
             <div className="header-center">
               <a href="javascript:;">
-                <div className={"portal-logo " + cookie.load('u_locale')||'zh_CN'}></div>
+                <div className="portal-logo" style={{backgroundImage:`url(${themeObj.headerCenterImg})`,backgroundSize:'100% 100%',backgroundRepeat:'no-repeat'}}></div>
                 {/* <img src={a } className="portal-logo" /> */}
               </a>
             </div>

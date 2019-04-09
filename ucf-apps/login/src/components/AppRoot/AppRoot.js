@@ -487,7 +487,7 @@ class App extends Component {
                         </div>
                     </div>                
                 </div>
-                <div className="login-bottom">{this.props.intl.formatMessage({id: 'ht.pag.log1.0022',defaultMessage:"版权所有"})} &#169;©2007-2019{this.props.intl.formatMessage({id: 'ht.pag.log1.0021',defaultMessage:"ht.pag.log1.0021"})}</div>
+                <div className="login-bottom">{this.props.intl.formatMessage({id: 'ht.pag.log1.0022',defaultMessage:"版权所有"})} &#169;2007-2019{this.props.intl.formatMessage({id: 'ht.pag.log1.0021',defaultMessage:"ht.pag.log1.0021"})}</div>
                 <LoginModal visible={forgetpsw}  step={forgetstep} className={langCode === 'en_US'? 'modal-en': ''}>
                     <div className="login-tabs step1">
                         {this.forgetpswModelTitle()}

@@ -3,6 +3,8 @@ import request from "utils/request";
 
 //定义接口地址
 const URL = {
+    "GET_LOCALE": `${GROBAL_HTTP_CTX}/i18n/classification/serial`,
+    "GET_LANGLIST": `${GROBAL_HTTP_CTX}/i18n/classification/list`,
     "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/newSidebarList?r=`+Math.random(),
     "GET_MENU_PORTAL":  `${GROBAL_HTTP_CTX}/appmenumgr/listSidebarByApportalCode?r=`+Math.random(),
     "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list?r=`+Math.random(),
@@ -11,7 +13,8 @@ const URL = {
     "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create?r=`+Math.random(),
     "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete?r=`+Math.random(),
     "GET_ALLTENANT":`${GROBAL_HTTP_CTX}/platform/cas/getAllTenant?r=`+Math.random(),
-    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random()
+    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random(),
+    "GET_GETBYID":`${GROBAL_HTTP_CTX}/userMGT/getById`,
 };
 
 /**
@@ -99,3 +102,28 @@ export const wbMenuUncollection = (params) => {
     });
 }
 
+export const setLocaleParam = (newLocaleValue) => {
+    let url = URL.GET_LOCALE + '?locale=' + newLocaleValue + '&r=' + Math.random();
+    return request(url, {
+        method: "get"
+    });
+}
+
+export const getLanguageList = () => {
+    let url = URL.GET_LANGLIST;
+    return request(url, {
+        method: "get"
+    });
+}
+
+
+/**
+ * 获取人员信息
+ * @param {*} params
+ */
+export const getUserById = (id) => {
+    let url = URL.GET_GETBYID + '/' + id + '?r='+Math.random();
+    return request(url, {
+        method: "get"
+    });
+};

@@ -362,6 +362,7 @@ const zh_CN = {
     'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
     'tabs.main.title':'用友iuap开发平台',
     'header.search.placeholder':'应用查询',
+    'header.search.noData':'无数据',
     'tabs.show.more':'更多'
 }
 export default zh_CN;

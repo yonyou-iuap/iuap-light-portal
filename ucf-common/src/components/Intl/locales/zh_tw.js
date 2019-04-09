@@ -375,6 +375,7 @@ const zh_TW = {
     'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
     'tabs.main.title':'用友iuap開發平台',
     'header.search.placeholder': '應用查詢',
+    'header.search.noData':'無數據',
     'tabs.show.more':'更多'
 }
 export default zh_TW;

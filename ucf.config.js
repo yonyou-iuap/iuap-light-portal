@@ -11,7 +11,9 @@ module.exports = (env, argv) => {
         bootList: [
             "index",
             "login",
+            // "appTest",
         ],
+        context:"iuap-lightportal-fe",
         // 代理的配置
         proxy: [{
             "enable": true,

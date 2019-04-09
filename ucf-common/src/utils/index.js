@@ -125,8 +125,17 @@ export const getCookie = (name) => {
     }
 
     // 按照总设部规范，调整为下划线
-    if(cookieValue != null && typeof cookieValue != 'undefined'){
-        cookieValue = cookieValue.replace(/-/,"_");
-    }
+    // if(cookieValue != null && typeof cookieValue != 'undefined'){
+    //     cookieValue = cookieValue.replace(/-/,"_");
+    // }
     return cookieValue;
+}
+export const flattenJsonId = (data,arr) => {
+  data.map(e => {
+       if (e.hasOwnProperty('children') && Array.isArray(e.children) && e.children.length > 0) {
+         flattenJsonId(e.children,arr);
+       }else {
+         arr.push(e);
+       }
+   });
 }

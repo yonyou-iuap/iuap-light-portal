@@ -358,6 +358,7 @@ const en_US = {
     'tabs.sidebar.maxnums':"Sorry, up to 10 tabs!",
     'tabs.main.title':'Yonyou iuap Development Platform',
     'header.search.placeholder':'Application query',
+    'header.search.noData':'No Data',
     'tabs.show.more':'more'
 }
 export default en_US;
