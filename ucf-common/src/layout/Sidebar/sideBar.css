@@ -169,7 +169,7 @@
 .sidebar-left {
   position: fixed;
   top:0px;
-  z-index:3000;
+  z-index:1200;
   width: auto;
   /* border: 1px solid red; */
 }

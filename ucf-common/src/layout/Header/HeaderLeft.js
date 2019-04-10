@@ -124,12 +124,13 @@ class HeaderLeft extends Component {
     }
     render() {
       let self = this;
+      let isLightPortal = GROBAL_PORTAL_ID;
       let {sideBarShow,leftExpanded,themeObj} = this.props;
       let {sideSearchVal,sideSearchList,sideSearchShow} = this.state;
-      // let selectVal = localStorage.getItem('themeVal');
-      // if(!selectVal) {
-      //   selectVal = '2'
-      // }
+      let selectVal = localStorage.getItem('themeVal');
+      if(!selectVal) {
+        selectVal = '2'
+      }
       let locale_serial = getCookie("locale_serial");
       if(locale_serial == 1) {
           locale_serial = "";
@@ -180,7 +181,7 @@ class HeaderLeft extends Component {
               */}
               </div>
 
-              {/*
+              { isLightPortal !== 'wbalone'?
                 <Select
                   defaultValue='0'
                   value={selectVal}
@@ -191,8 +192,8 @@ class HeaderLeft extends Component {
                   <Option value="2">浅色主题</Option>
                   <Option value="1">深色主题</Option>
                   <Option value="0">中兴</Option>
-                </Select>
-              */}
+                </Select>:''
+              }
             </div>
         );
     }

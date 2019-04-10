@@ -84,272 +84,279 @@ export default {
     },
     effects: {
         async themeRequest() {
+          // debugger;
+          let isLightPortal = GROBAL_PORTAL_ID;
           // let themeObj = getState().app.themeObj;
           // let {themeObj} = this.props;
-          let getLocal = cookie.load('u_locale')||'zh_CN';
-          let headerCenterDefaultImg ='';
-          let defaultBgImg ='';
-          let obj1 = {
-              headerTheme: 'light',
-              headerBgImg:'',
-              headerBgColor:'',
-              sideShowPosition:'',
-              headerCenterImg:'',
-              leftSideTheme:'light',
-              leftSideBgColor:'',
-              leftSideBgImg:'',
-              tabNum: 10
-            }
-          if(obj1.headerTheme === '') {
-            obj1.headerTheme = 'light';
-          }
-          if(obj1.headerTheme === 'dark') {
-            if(getLocal === 'zh_CN') {
-              headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
-            } else if (getLocal === 'en_US') {
-              headerCenterDefaultImg = 'images/index/logo_light_US.svg';
-            } else {
-              headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
-            }
-            if(!obj1.headerBgImg && !obj1.headerBgColor) {
-              defaultBgImg = 'images/index/dark_bg_img.jpg';
-            }
-            let defaultSideBgImg = '';
-            if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
-              defaultSideBgImg = '';
-            }
-            let obj2 = {};
-            if(obj1.leftSideTheme === '') {
-              obj1.leftSideTheme = 'light';
-            }
-            if(obj1.leftSideTheme === 'dark') {
-              let obj2 = {
-                leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
-                leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-                leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
-              }
-            }
-            if(obj1.leftSideTheme === 'light') {
-              let obj2 = {
-                leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
-                leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-                leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
-              }
-              }
-              obj1 = Object.assign(obj1,obj2);
-            let obj = {
-              headerTheme: obj1.headerTheme? obj1.headerTheme :'dark',
-              headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
-              headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#242D48',
-              sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
-              headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg,
-            }
-            actions.app.updateState({
-              themeObj: Object.assign(obj1,obj)
-            })
-
-          }
-          if(obj1.headerTheme === 'light') {
+          if(isLightPortal === 'wbalone') {
+            let getLocal = cookie.load('u_locale')||'zh_CN';
+            let headerCenterDefaultImg ='';
             let defaultBgImg ='';
-            if(getLocal === 'zh_CN') {
-              headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
-            } else if (getLocal === 'en_US') {
-              headerCenterDefaultImg = 'images/index/logo_en_US.svg';
-            } else {
-              headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
-            }
-            if(!obj1.headerBgImg && !obj1.headerBgColor) {
-              defaultBgImg = 'images/index/bg_topbar.jpg'
-            }
-            let defaultSideBgImg = '';
-            if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
-              defaultSideBgImg = '';
-            }
-            let obj2 = {};
-            if(obj1.leftSideTheme === '') {
-              obj1.leftSideTheme = 'light';
-            }
-            if(obj1.leftSideTheme === 'dark') {
-              let obj2 = {
-                leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
-                leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-                leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+            let obj1 = {
+                headerTheme: 'light',
+                headerBgImg:'',
+                headerBgColor:'',
+                sideShowPosition:'',
+                headerCenterImg:'',
+                leftSideTheme:'light',
+                leftSideBgColor:'',
+                leftSideBgImg:'',
+                tabNum: 10
               }
+            if(obj1.headerTheme === '') {
+              obj1.headerTheme = 'light';
             }
-            if(obj1.leftSideTheme === 'light') {
-              let obj2 = {
-                leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
-                leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-                leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+            if(obj1.headerTheme === 'dark') {
+              if(getLocal === 'zh_CN') {
+                headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
+              } else if (getLocal === 'en_US') {
+                headerCenterDefaultImg = 'images/index/logo_light_US.svg';
+              } else {
+                headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
               }
+              if(!obj1.headerBgImg && !obj1.headerBgColor) {
+                defaultBgImg = 'images/index/dark_bg_img.jpg';
               }
-              obj1 = Object.assign(obj1,obj2);
-            let obj = {
-              headerTheme: obj1.headerTheme? obj1.headerTheme :'light',
-              headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
-              headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#fff',
-              sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
-              headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg
+              let defaultSideBgImg = '';
+              if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
+                defaultSideBgImg = '';
+              }
+              let obj2 = {};
+              if(obj1.leftSideTheme === '') {
+                obj1.leftSideTheme = 'light';
+              }
+              if(obj1.leftSideTheme === 'dark') {
+                let obj2 = {
+                  leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
+                  leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                  leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                }
+              }
+              if(obj1.leftSideTheme === 'light') {
+                let obj2 = {
+                  leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
+                  leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                  leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                }
+                }
+                obj1 = Object.assign(obj1,obj2);
+              let obj = {
+                headerTheme: obj1.headerTheme? obj1.headerTheme :'dark',
+                headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
+                headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#242D48',
+                sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
+                headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg,
+              }
+              actions.app.updateState({
+                themeObj: Object.assign(obj1,obj)
+              })
+
             }
-            actions.app.updateState({
-              themeObj:Object.assign(obj1,obj)
-            })
+            if(obj1.headerTheme === 'light') {
+              let defaultBgImg ='';
+              if(getLocal === 'zh_CN') {
+                headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
+              } else if (getLocal === 'en_US') {
+                headerCenterDefaultImg = 'images/index/logo_en_US.svg';
+              } else {
+                headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
+              }
+              if(!obj1.headerBgImg && !obj1.headerBgColor) {
+                defaultBgImg = 'images/index/bg_topbar.jpg'
+              }
+              let defaultSideBgImg = '';
+              if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
+                defaultSideBgImg = '';
+              }
+              let obj2 = {};
+              if(obj1.leftSideTheme === '') {
+                obj1.leftSideTheme = 'light';
+              }
+              if(obj1.leftSideTheme === 'dark') {
+                let obj2 = {
+                  leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
+                  leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                  leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                }
+              }
+              if(obj1.leftSideTheme === 'light') {
+                let obj2 = {
+                  leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
+                  leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                  leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                }
+                }
+                obj1 = Object.assign(obj1,obj2);
+              let obj = {
+                headerTheme: obj1.headerTheme? obj1.headerTheme :'light',
+                headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
+                headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#fff',
+                sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
+                headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg
+              }
+              actions.app.updateState({
+                themeObj:Object.assign(obj1,obj)
+              })
+            }
+          } else {
+            let flagVal = localStorage.getItem('themeVal');
+            if(!flagVal) {
+              flagVal = '2';
+            }
+            let defaultBgImg ='';
+            if(flagVal === '1'){
+              let obj1 = {
+                headerTheme: 'dark',
+                headerBgImg:'',
+                headerBgColor:'',
+                sideShowPosition:'left',
+                headerCenterImg:'',
+                leftSideTheme:'dark',
+                leftSideBgColor:'',
+                leftSideBgImg:'',
+                tabNum: 10
+              }
+              if(obj1.headerTheme === ''){
+                obj1.headerTheme = 'light';
+              }
+              let getLocal = cookie.load('u_locale')||'zh_CN';
+              let headerCenterDefaultImg;
+              if(getLocal === 'zh_CN') {
+                  headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
+                } else if (getLocal === 'en_US') {
+                  headerCenterDefaultImg = 'images/index/logo_light_US.svg';
+                } else {
+                  headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
+                }
+                if(!obj1.headerBgImg && !obj1.headerBgColor) {
+                  defaultBgImg = 'images/index/dark_bg_img.jpg'
+                }
+                let defaultSideBgImg = '';
+                if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
+                  defaultSideBgImg = 'images/index/dark_bg_img.jpg';
+                }
+                let obj2 = {};
+                if(obj1.leftSideTheme === 'dark') {
+                  let obj2 = {
+                    leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
+                    leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                    leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                  }
+                }
+                if(obj1.leftSideTheme === 'light') {
+                  let obj2 = {
+                    leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
+                    leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
+                    leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
+                  }
+                  }
+                  obj1 = Object.assign(obj1,obj2);
+                  let obj = {
+                    headerTheme: obj1.headerTheme? obj1.headerTheme :'dark',
+                    headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
+                    headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#242D48',
+                    sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
+                    headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg,
+                  }
+                actions.app.updateState({
+                  themeObj: Object.assign(obj1,obj)
+                })
+            }else if(flagVal === '2'){
+              let themeObj = {
+                headerTheme: 'light',
+                headerBgImg:'',
+                headerBgColor:'',
+                sideShowPosition:'',
+                headerCenterImg:'',
+                leftSideTheme:'dark',
+                leftSideBgColor:'#093E91',
+                leftSideBgImg:'',
+                tabNum:10
+              }
+              if(themeObj.headerTheme === ''){
+                themeObj.headerTheme = 'light';
+              }
+              let getLocal = cookie.load('u_locale')||'zh_CN';
+              let defaultBgImg ='';
+              let headerCenterDefaultImg = '';
+                if(getLocal === 'zh_CN') {
+                  headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
+                } else if (getLocal === 'en_US') {
+                  headerCenterDefaultImg = 'images/index/logo_en_US.svg';
+                } else {
+                  headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
+                }
+                if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
+                  defaultBgImg = 'images/index/bg_topbar.jpg'
+                }
+                let defaultSideBgImg = '';
+                if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
+                  defaultSideBgImg = '';
+                }
+                let obj2 = {};
+                if(themeObj.leftSideTheme === 'dark') {
+                  let obj2 = {
+                    leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
+                    leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultSideBgImg,
+                    leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+                  }
+                }
+                if(themeObj.leftSideTheme === 'light') {
+                  let obj2 = {
+                    leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
+                    leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultSideBgImg,
+                    leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+                  }
+                  }
+                  themeObj = Object.assign(themeObj,obj2);
+                let obj = {
+                  headerTheme: themeObj.headerTheme? themeObj.headerTheme :'light',
+                  headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
+                  headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#fff',
+                  sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
+                  headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
+                }
+                actions.app.updateState({
+                  themeObj:Object.assign(themeObj,obj)
+                })
+              } else if(flagVal === '0'){
+                let themeObj = {
+                  headerTheme: 'dark',
+                  headerBgImg:'',
+                  headerBgColor:'',
+                  sideShowPosition:'left',
+                  headerCenterImg:'',
+                  leftSideTheme:'dark',
+                  leftSideBgColor:'#093E91',
+                  leftSideBgImg:''
+                }
+                let getLocal = cookie.load('u_locale')||'zh_CN';
+                let defaultBgImg ='';
+                let headerCenterDefaultImg = '';
+                  if(getLocal === 'zh_CN') {
+                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                  } else if (getLocal === 'en_US') {
+                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                  } else {
+                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                  }
+                  if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
+                    defaultBgImg = 'images/index/ZX.jpg'
+                  }
+                  let obj = {
+                    headerTheme: themeObj.headerTheme? themeObj.headerTheme :'dark',
+                    headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
+                    headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#093E91',
+                    sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
+                    headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
+                  }
+                  actions.app.updateState({
+                    themeObj:Object.assign(themeObj,obj)
+                  })
+              }
           }
-          // let flagVal = localStorage.getItem('themeVal');
-          // if(!flagVal) {
-          //   flagVal = '2';
-          // }
-          // let defaultBgImg ='';
-          // if(flagVal === '1'){
-          //   let obj1 = {
-          //     headerTheme: 'dark',
-          //     headerBgImg:'',
-          //     headerBgColor:'',
-          //     sideShowPosition:'left',
-          //     headerCenterImg:'',
-          //     leftSideTheme:'dark',
-          //     leftSideBgColor:'',
-          //     leftSideBgImg:'',
-          //     tabNum: 10
-          //   }
-          //   if(obj1.headerTheme === ''){
-          //     obj1.headerTheme = 'light';
-          //   }
-          //   let getLocal = cookie.load('u_locale')||'zh_CN';
-          //   let headerCenterDefaultImg;
-          //   if(getLocal === 'zh_CN') {
-          //       headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
-          //     } else if (getLocal === 'en_US') {
-          //       headerCenterDefaultImg = 'images/index/logo_light_US.svg';
-          //     } else {
-          //       headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
-          //     }
-          //     if(!obj1.headerBgImg && !obj1.headerBgColor) {
-          //       defaultBgImg = 'images/index/dark_bg_img.jpg'
-          //     }
-          //     let defaultSideBgImg = '';
-          //     if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
-          //       defaultSideBgImg = 'images/index/dark_bg_img.jpg';
-          //     }
-          //     let obj2 = {};
-          //     if(obj1.leftSideTheme === 'dark') {
-          //       let obj2 = {
-          //         leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
-          //         leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-          //         leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
-          //       }
-          //     }
-          //     if(obj1.leftSideTheme === 'light') {
-          //       let obj2 = {
-          //         leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'light',
-          //         leftSideBgImg: obj1.leftSideBgImg? obj1.leftSideBgImg : defaultSideBgImg,
-          //         leftSideBgColor: obj1.leftSideBgColor? obj1.leftSideBgColor : 'red',
-          //       }
-          //       }
-          //       obj1 = Object.assign(obj1,obj2);
-          //       let obj = {
-          //         headerTheme: obj1.headerTheme? obj1.headerTheme :'dark',
-          //         headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
-          //         headerBgColor: obj1.headerBgColor? obj1.headerBgColor : '#242D48',
-          //         sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
-          //         headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg,
-          //       }
-          //     actions.app.updateState({
-          //       themeObj: Object.assign(obj1,obj)
-          //     })
-          // }else if(flagVal === '2'){
-          //   let themeObj = {
-          //     headerTheme: 'light',
-          //     headerBgImg:'',
-          //     headerBgColor:'',
-          //     sideShowPosition:'',
-          //     headerCenterImg:'',
-          //     leftSideTheme:'dark',
-          //     leftSideBgColor:'#093E91',
-          //     leftSideBgImg:'',
-          //     tabNum:10
-          //   }
-          //   if(themeObj.headerTheme === ''){
-          //     themeObj.headerTheme = 'light';
-          //   }
-          //   let getLocal = cookie.load('u_locale')||'zh_CN';
-          //   let defaultBgImg ='';
-          //   let headerCenterDefaultImg = '';
-          //     if(getLocal === 'zh_CN') {
-          //       headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
-          //     } else if (getLocal === 'en_US') {
-          //       headerCenterDefaultImg = 'images/index/logo_en_US.svg';
-          //     } else {
-          //       headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
-          //     }
-          //     if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
-          //       defaultBgImg = 'images/index/bg_topbar.jpg'
-          //     }
-          //     let defaultSideBgImg = '';
-          //     if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
-          //       defaultSideBgImg = '';
-          //     }
-          //     let obj2 = {};
-          //     if(themeObj.leftSideTheme === 'dark') {
-          //       let obj2 = {
-          //         leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
-          //         leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultSideBgImg,
-          //         leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-          //       }
-          //     }
-          //     if(themeObj.leftSideTheme === 'light') {
-          //       let obj2 = {
-          //         leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
-          //         leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultSideBgImg,
-          //         leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-          //       }
-          //       }
-          //       themeObj = Object.assign(themeObj,obj2);
-          //     let obj = {
-          //       headerTheme: themeObj.headerTheme? themeObj.headerTheme :'light',
-          //       headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
-          //       headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#fff',
-          //       sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
-          //       headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
-          //     }
-          //     actions.app.updateState({
-          //       themeObj:Object.assign(themeObj,obj)
-          //     })
-          //   } else if(flagVal === '0'){
-          //     let themeObj = {
-          //       headerTheme: 'dark',
-          //       headerBgImg:'',
-          //       headerBgColor:'',
-          //       sideShowPosition:'left',
-          //       headerCenterImg:'',
-          //       leftSideTheme:'dark',
-          //       leftSideBgColor:'#093E91',
-          //       leftSideBgImg:''
-          //     }
-          //     let getLocal = cookie.load('u_locale')||'zh_CN';
-          //     let defaultBgImg ='';
-          //     let headerCenterDefaultImg = '';
-          //       if(getLocal === 'zh_CN') {
-          //         headerCenterDefaultImg = 'images/index/ZX-logo.png';
-          //       } else if (getLocal === 'en_US') {
-          //         headerCenterDefaultImg = 'images/index/ZX-logo.png';
-          //       } else {
-          //         headerCenterDefaultImg = 'images/index/ZX-logo.png';
-          //       }
-          //       if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
-          //         defaultBgImg = 'images/index/ZX.jpg'
-          //       }
-          //       let obj = {
-          //         headerTheme: themeObj.headerTheme? themeObj.headerTheme :'dark',
-          //         headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
-          //         headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#093E91',
-          //         sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
-          //         headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
-          //       }
-          //       actions.app.updateState({
-          //         themeObj:Object.assign(themeObj,obj)
-          //       })
-          //   }
+
+
         },
         /**
          * 加载菜单数据
