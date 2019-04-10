@@ -41,6 +41,8 @@ export const getVertifyImg = (username) => {
 
 export const loginAjax = (loginData) => {
     let url = URL.POST_LOGIN;
+    let par = GROBAL_PORTAL_CTX !== '/wbalone'? '?service=' + GROBAL_PORTAL_CTX: '';
+    url = url + par;
     return request(url, {
         method: "post",
         data: JSON.stringify(loginData),
