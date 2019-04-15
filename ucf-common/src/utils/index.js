@@ -139,3 +139,14 @@ export const flattenJsonId = (data,arr) => {
        }
    });
 }
+
+export function getConfig(){
+    return window.iuapConfig || window.parent.iuapConfig || window.top.iuapConfig || {};
+}
+
+export function getContextId(){
+    let config = window.iuapConfig || window.parent.iuapConfig || window.top.iuapConfig || {}
+    // return config.context || 'mdm';
+    // return 'mdm'
+    return config.context || 'wbalone';
+}

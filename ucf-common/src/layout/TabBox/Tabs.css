@@ -355,3 +355,9 @@
 .tabs-show-left-expand {
   margin-left: 50px;
 }
+.tabs-more-list-show  li {
+  padding:0 8px !important;
+}
+.tabs-more-list-show li:first-child a {
+  padding: 0;
+}

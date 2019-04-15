@@ -6,6 +6,8 @@ import UserMenus from 'components/UserMenu/UserMenu';
 import Tenant from 'layout/Tenant/Tenant';
 import { actions } from 'mirrorx';
 import {getCookie} from "utils";
+import {getContextId} from 'utils';
+const contextId = getContextId();
 const Nav = Navbar.Nav;
 const Option = Select.Option;
 class HeaderRight extends Component {
@@ -74,6 +76,7 @@ class HeaderRight extends Component {
       // if(!selectVal) {
       //   selectVal = '2'
       // }
+      let langDisplay = contextId === 'wbalone'? 'inline-block' : 'none';
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
@@ -96,7 +99,7 @@ class HeaderRight extends Component {
                 {
                   <Select
                     defaultValue={langCode}
-                    style={{ marginRight: 6 , width: 100}}
+                    style={{ marginRight: 6 , width: 100, display: langDisplay}}
                     onChange={this.handleChange}
                   >
                     {this.initOption("lang",langList)}

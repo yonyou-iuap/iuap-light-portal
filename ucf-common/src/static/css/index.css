@@ -710,6 +710,9 @@ body{
 	padding-left:52px;
 	display:none;
 }
+.portal-logo.portal-logomdm{
+	width: 250px;
+}
 .portal-logo {
 	width: 127px;
 	height:32px;

@@ -8,6 +8,8 @@ import 'static/trd/tinper-bee/assets/tinper-bee.css'
 import { setCookie } from 'utils/index';
 setCookie('portalid',GROBAL_PORTAL_ID)
 import Intl from 'components/Intl/index.js'
+import {getContextId} from 'utils';
+const contextId = getContextId();
 
 const MiddlewareConfig = [];
 
@@ -18,6 +20,10 @@ mirror.defaults({
     middlewares: MiddlewareConfig
 });
 
+
+if(contextId === 'mdm'){
+    document.getElementById("login_div").classList.add("bgmdm")
+}
 
 
 render(<Intl>

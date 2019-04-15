@@ -39,7 +39,7 @@ class LoginModal extends Component {
     }
     renderCurrent(){
         const { className,children,step} = this.props;
-        const classNameCon =className? "modal"+className:"modal";
+        const classNameCon =className? "modal "+className:"modal";
         const sstep = this.compute(step,children.length);
         console.log(sstep);
         return <div className={classNameCon}>

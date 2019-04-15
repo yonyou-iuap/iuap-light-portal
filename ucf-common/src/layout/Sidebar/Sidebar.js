@@ -159,13 +159,18 @@ class App extends Component {
         this.createTab(options);
     }
 
-    openTab(e,item){
+    openTab(e,reload,item){
+      let {current,menus} = this.props;
         // 新增方法后续需要重构
         let tar = e.target || e.domEvent.target;
         if (!tar.tagName || tar.tagName !== 'A') {
             tar = tar.closest('a');
         }
-
+        let data = {
+            current: value,
+            showNotice:0,
+            reload:0
+        };
         if (!tar.tagName || tar.tagName !== 'A') {
             return false;
         }
@@ -183,6 +188,35 @@ class App extends Component {
             router:router,
             id:value
         };
+        let menu = menus;
+        if(value ===current ){
+          var url = location.hash;
+        } else {
+          if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
+              return false;
+          }
+          else {
+              var menuObj = JSON.parse(JSON.stringify(menu));
+
+
+              if(menuObj.length==11&&JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
+                  actions.app.updateState({
+                      showNotice:1
+                  });
+                  Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
+                  return false;
+              }
+              else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
+                  data = {
+                      current: value,
+                      showNotice:0,
+                      reload:reload?1:0,
+                      currentRouter:reload?decodeURIComponent(decodeURIComponent(router.replace('#\/ifr\/',''))):''
+                  };
+              }
+              actions.app.updateState(data);
+          }
+        }
         this.createTab(options);
         let {sideBarShow} = this.props;
         actions.app.updateState({
@@ -210,9 +244,9 @@ class App extends Component {
 
         var menuObj = JSON.parse(JSON.stringify(menu));
 
-        if(menuObj.length==11) {
-            return false;
-        }
+        // if(menuObj.length==11) {
+        //     return false;
+        // }
 
         menuObj[menuObj.length] = options;
 
@@ -887,7 +921,7 @@ class App extends Component {
                                                               title={itit['name'+locale_serial]}
                                                               data-ahref={self.changeAhref(itit)}
                                                               data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
+                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                               ref={itit.id} name={itit['name'+locale_serial]}
                                                               href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -900,7 +934,7 @@ class App extends Component {
                                                                   title={itit['name'+locale_serial]}
                                                                   data-ahref={self.changeAhref(itit)}
                                                                   data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
+                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                                   ref={itit.id} name={itit['name'+locale_serial]}
                                                                   href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -956,7 +990,7 @@ class App extends Component {
 
                                         var  cellH = 46;
                                         let  html = <div className={'menu-popup'}>
-                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
                                         </div>
@@ -1001,10 +1035,10 @@ class App extends Component {
                                 }
 
                                 let title = (
-                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
+                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
                                 );
                                 return (
-                                    <div onClick={(e)=>self.openTab(e)} className="side-bar-first">
+                                    <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
                                         {title}
                                     </div>
                                 )
@@ -1045,7 +1079,7 @@ class App extends Component {
                                                                   title={itit['name'+locale_serial]}
                                                                   data-ahref={self.changeAhref(itit)}
                                                                   data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                                   ref={itit.id} name={itit['name'+locale_serial]}
                                                                   href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -1058,7 +1092,7 @@ class App extends Component {
                                                                       title={itit['name'+locale_serial]}
                                                                       data-ahref={self.changeAhref(itit)}
                                                                       data-licenseControlFlag={itit.licenseControlFlag}
-                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                                       ref={itit.id} name={itit['name'+locale_serial]}
                                                                       href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -1114,7 +1148,7 @@ class App extends Component {
 
                                             var  cellH = 46;
                                             let  html = <div className={'menu-popup'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                            data-menuId={it.menuId} title={'收藏'}></i></a>
                                             </div>
@@ -1199,7 +1233,7 @@ class App extends Component {
                                                           title={itit['name'+locale_serial]}
                                                           data-ahref={self.changeAhref(itit)}
                                                           data-licenseControlFlag={itit.licenseControlFlag}
-                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                           ref={itit.id} name={itit['name'+locale_serial]}
                                                           href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -1212,7 +1246,7 @@ class App extends Component {
                                                               title={itit['name'+locale_serial]}
                                                               data-ahref={self.changeAhref(itit)}
                                                               data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
                                                               ref={itit.id} name={itit['name'+locale_serial]}
                                                               href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -1268,7 +1302,7 @@ class App extends Component {
 
                                     var  cellH = 46;
                                     let  html = <div className={'menu-popup'}>
-                                        <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                        <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                    data-menuId={it.menuId} title={'收藏'}></i></a>
                                     </div>
@@ -1321,10 +1355,10 @@ class App extends Component {
                             }
 
                             let title = (
-                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
+                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
                             );
                             return (
-                                <div onClick={(e)=>self.openTab(e,item)} className="side-bar-first">
+                                <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
                                     {title}
                                 </div>
                             )

@@ -9,6 +9,8 @@ import {  getCookie } from "utils";
 import {
 	RSAUtils
 } from 'utils/rsautils';
+import {getContextId} from 'utils';
+const contextId = getContextId();
 
 import 'static/css/login.css';
 
@@ -450,13 +452,16 @@ class App extends Component {
             resetpswErrMsg =  this.props.intl.formatMessage({id: 'js.pag.log.0006',defaultMessage:"密码修改成功，"}) + resetpswErrMsg + this.props.intl.formatMessage({id: 'js.pag.log.0007',defaultMessage:"S后自动关闭"})
         }
         let logImg = GROBAL_PORTAL_ID === 'wbalone'? 'logo-img' : 'logo-img-light'
+        let langDisplay = contextId === 'wbalone'? 'block' : 'none';
         return (
             <div className="login-main">
                 <div className="login-top">
                     <div className="login-logo">
                         <div className={logImg}><img src=""/></div>                                          
                     </div>
-                    <div className="login-lang">
+                    <div className="login-lang" style={{
+                        display: langDisplay
+                    }}>
                         <Select id="busicenter" onSelect={this.onSelect} defaultValue={langCode} className="langcode">
                             {this.initOption("lang",langList)}
                         </Select>

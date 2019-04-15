@@ -58,7 +58,7 @@ export default {
           leftSideTheme:'',
           leftSideBgColor:'red',
           leftSideBgImg:'',
-          tabNum: 10
+          tabNum: 9
         },
         searchVal: '',
 
@@ -101,7 +101,7 @@ export default {
                 leftSideTheme:'light',
                 leftSideBgColor:'',
                 leftSideBgImg:'',
-                tabNum: 10
+                tabNum: 9
               }
             if(obj1.headerTheme === '') {
               obj1.headerTheme = 'light';
