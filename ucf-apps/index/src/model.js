@@ -108,14 +108,14 @@ export default {
             }
             if(obj1.headerTheme === 'dark') {
               if(getLocal === 'zh_CN') {
-                headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_light_CN.svg';
               } else if (getLocal === 'en_US') {
-                headerCenterDefaultImg = 'images/index/logo_light_US.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_light_US.svg';
               } else {
-                headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_light_TW.svg';
               }
               if(!obj1.headerBgImg && !obj1.headerBgColor) {
-                defaultBgImg = 'images/index/dark_bg_img.jpg';
+                defaultBgImg = '/wbalone/images/index/dark_bg_img.jpg';
               }
               let defaultSideBgImg = '';
               if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
@@ -155,14 +155,14 @@ export default {
             if(obj1.headerTheme === 'light') {
               let defaultBgImg ='';
               if(getLocal === 'zh_CN') {
-                headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
               } else if (getLocal === 'en_US') {
-                headerCenterDefaultImg = 'images/index/logo_en_US.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
               } else {
-                headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
+                headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
               }
               if(!obj1.headerBgImg && !obj1.headerBgColor) {
-                defaultBgImg = 'images/index/bg_topbar.jpg'
+                defaultBgImg = '/wbalone/images/index/bg_topbar.jpg'
               }
               let defaultSideBgImg = '';
               if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
@@ -222,18 +222,18 @@ export default {
               let getLocal = cookie.load('u_locale')||'zh_CN';
               let headerCenterDefaultImg;
               if(getLocal === 'zh_CN') {
-                  headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_light_CN.svg';
                 } else if (getLocal === 'en_US') {
-                  headerCenterDefaultImg = 'images/index/logo_light_US.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_light_US.svg';
                 } else {
-                  headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_light_TW.svg';
                 }
                 if(!obj1.headerBgImg && !obj1.headerBgColor) {
-                  defaultBgImg = 'images/index/dark_bg_img.jpg'
+                  defaultBgImg = '/wbalone/images/index/dark_bg_img.jpg'
                 }
                 let defaultSideBgImg = '';
                 if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
-                  defaultSideBgImg = 'images/index/dark_bg_img.jpg';
+                  defaultSideBgImg = '/wbalone/images/index/dark_bg_img.jpg';
                 }
                 let obj2 = {};
                 if(obj1.leftSideTheme === 'dark') {
@@ -280,14 +280,14 @@ export default {
               let defaultBgImg ='';
               let headerCenterDefaultImg = '';
                 if(getLocal === 'zh_CN') {
-                  headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
                 } else if (getLocal === 'en_US') {
-                  headerCenterDefaultImg = 'images/index/logo_en_US.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
                 } else {
-                  headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
+                  headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
                 }
                 if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
-                  defaultBgImg = 'images/index/bg_topbar.jpg'
+                  defaultBgImg = '/wbalone/images/index/bg_topbar.jpg'
                 }
                 let defaultSideBgImg = '';
                 if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
@@ -334,14 +334,14 @@ export default {
                 let defaultBgImg ='';
                 let headerCenterDefaultImg = '';
                   if(getLocal === 'zh_CN') {
-                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                    headerCenterDefaultImg = '/wbalone/images/index/ZX-logo.png';
                   } else if (getLocal === 'en_US') {
-                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                    headerCenterDefaultImg = '/wbalone/images/index/ZX-logo.png';
                   } else {
-                    headerCenterDefaultImg = 'images/index/ZX-logo.png';
+                    headerCenterDefaultImg = '/wbalone/images/index/ZX-logo.png';
                   }
                   if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
-                    defaultBgImg = 'images/index/ZX.jpg'
+                    defaultBgImg = '/wbalone/images/index/ZX.jpg'
                   }
                   let obj = {
                     headerTheme: themeObj.headerTheme? themeObj.headerTheme :'dark',

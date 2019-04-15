@@ -238,9 +238,9 @@ class App extends Component {
 
 
 
-        if(menuObj.length==11) {
-            return false;
-        }
+        // if(menuObj.length==11) {
+        //     return false;
+        // }
 
         menuObj[menuObj.length] = options;
 
