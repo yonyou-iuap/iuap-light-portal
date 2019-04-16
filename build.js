@@ -14,9 +14,14 @@ rm(path.resolve(__dirname, './build'), err => {
       cpr(path.resolve(__dirname, './ucf-publish/iuap-lightportal-fe/index/index.js'), path.resolve(__dirname, './build/' + packageName + '/index/index.js'), {}, err => {
         cpr(path.resolve(__dirname, './ucf-publish/iuap-lightportal-fe/login'), path.resolve(__dirname, './build/' + packageName + '/pages/login'), {}, err => {
           fs.rename('./build/' + packageName + '/pages/login/index.html', './build/' + packageName + '/pages/login/login.html', err => {
-            let htmlPath = path.resolve(__dirname + '/build/' + packageName + '/pages/login/login.html');
+            // let htmlPath = path.resolve(__dirname + '/build/' + packageName + '/pages/login/login.html');
+            // let htmlStr = fs.readFileSync(htmlPath);
+            // htmlStr = htmlStr.toString().replace(/..\/iuap-lightportal-fe\//g,'')
+            // fs.writeFileSync(htmlPath, htmlStr);
+
+            let htmlPath = path.resolve(__dirname + '/build/' + packageName + '/index.html');
             let htmlStr = fs.readFileSync(htmlPath);
-            htmlStr = htmlStr.toString().replace(/..\/iuap-lightportal-fe\//g,'')
+            htmlStr = htmlStr.toString().replace(/..\/index/g,'./index')
             fs.writeFileSync(htmlPath, htmlStr);
 
             var d = new Date();
