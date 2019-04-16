@@ -82,7 +82,7 @@ class UserMenus extends Component {
                         <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
                         <span className="header-right-icon"><i className="uf uf-treearrow-down"></i></span>
                         <span className="avatar-icon">
-                          <img src={decodeURIComponent(decodeURIComponent(decodeURIComponent(cookie.load('loginChannel')=='yht'?'%252wbalone%252images%252Fdot.png': cookie.load('_A_P_userAvator'))))} />
+                          <img src={decodeURIComponent(decodeURIComponent(decodeURIComponent(cookie.load('loginChannel')=='yht'?'%252Fwbalone%252Fimages%252Fdot.png': cookie.load('_A_P_userAvator'))))} />
                         </span>
                     </div>
                 </div>}
