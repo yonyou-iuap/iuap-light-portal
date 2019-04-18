@@ -516,3 +516,17 @@
   }
 
 }
+.tenant-select {
+  width: auto !important;
+  min-width: 100px;
+  max-width: 124px;
+}
+.tenant-select.u-select-dropdown .u-select-dropdown-menu-item {
+  padding: 7px 8px;
+  max-width: 124px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  color: #666;
+}

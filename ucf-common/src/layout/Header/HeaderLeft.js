@@ -72,9 +72,10 @@ class HeaderLeft extends Component {
       this.props.headerRightOper.themeChange(val);
     }
     searchTabClick = (item) => {
+      let router = item.location+"?modulefrom=sidebar";
       let options = {
         id: item.id,
-        router:item.location,
+        router:router,
         title: item.name,
         title2: item.name2,
         title3: item.name3,
@@ -163,7 +164,7 @@ class HeaderLeft extends Component {
                   sideSearchList.length>0?<ul className="search-info">
                   {
                     sideSearchList.map((item)=>{
-                      return <li><a href="javascript:void(0)" onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
+                      return <li><a href="javascript:void(0)"  onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
                     })
                   }
                   </ul>:<ul className="search-info search-info-no-data"><li><FormattedMessage id="header.search.noData" defaultMessage="无数据"/></li></ul>

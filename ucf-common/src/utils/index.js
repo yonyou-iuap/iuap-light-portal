@@ -20,12 +20,17 @@ export const Warning = (msg) => {
  * @param {*} successMsg 成功提示
  */
 export const processData = (response,successMsg) => {
+    let url = response.config.url;
+    let errorMsg = '';
     if(typeof response != 'object') {
         Error('数据返回出错：1、请确保服务运行正常；2、请确保您的前端工程代理服务正常；3、请确认您已在本地登录过应用平台');
         return;
     }
     if(response.status=='401'){
-        Error(`错误:${(response.data.msg)}`);
+        errorMsg = response.data.msg ||  url + ' 请求错误';
+        console.log(errorMsg)
+        // Error(`错误:${(response.data.msg)}`);
+        Error(`错误:${(errorMsg)}`);
         return;
     }
     if(response.status=='200'){
@@ -38,14 +43,23 @@ export const processData = (response,successMsg) => {
             }
             return data;
         }else if(repMsg=='fail_field'){
-            Error(`错误:${(data && convert(data.msg)) || '数据返回出错'}`);
+            errorMsg = (data && convert(data.msg)) || url + ' 数据返回出错';
+            // Error(`错误:${(data && convert(data.msg)) || '数据返回出错'}`);
+            console.log(errorMsg)
+            Error(`错误:${(errorMsg)}`);
             return
         }else {
-            Error(`错误:${convert(data.msg ||data.message)}`);
+            errorMsg = convert(data.msg ||data.message) || url + ' 请求错误';
+            // Error(`错误:${convert(data.msg ||data.message)}`);
+            console.log(errorMsg)
+            Error(`错误:${(errorMsg)}`);
             return;
         }
     }else{
-        Error('请求错误');
+        errorMsg = url + '请求错误';
+        // Error('请求错误');
+        console.log(errorMsg)
+        Error(`错误:${(errorMsg)}`);
         return;
     }
 }

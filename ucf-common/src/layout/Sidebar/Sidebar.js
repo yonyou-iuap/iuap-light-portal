@@ -199,12 +199,12 @@ class App extends Component {
               var menuObj = JSON.parse(JSON.stringify(menu));
 
 
-              if(menuObj.length==11&&JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
+              if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
                   actions.app.updateState({
                       showNotice:1
                   });
-                  Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                  return false;
+                  // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
+                  // return false;
               }
               else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
                   data = {

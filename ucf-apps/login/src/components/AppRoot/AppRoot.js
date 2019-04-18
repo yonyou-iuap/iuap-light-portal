@@ -38,6 +38,9 @@ class App extends Component {
                 }
             }
         }, 1000);
+        if(window.location.href !== window.top.location.href){ //解决登录页嵌套问题
+            window.top.location.href=window.location.href ;
+        }
         //本地缓存有最后一次登录用户名，则使用
         var lastLoginName = localStorage.getItem("lastLoginName");
         if (lastLoginName != undefined) {

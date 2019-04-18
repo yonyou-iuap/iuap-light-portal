@@ -50,15 +50,15 @@ export default {
         //   leftSideBgImg:''
         // },
         themeObj:{
-          headerTheme: 'light',
-          headerBgImg:'',
-          headerBgColor:'',
-          sideShowPosition:'',
-          headerCenterImg:'',
-          leftSideTheme:'',
-          leftSideBgColor:'red',
-          leftSideBgImg:'',
-          tabNum: 9
+          headerTheme: 'light', //主题有深色主题(dark)和浅色主题(light),用来控制是否反白
+          headerBgImg:'', //头部区域的背景图
+          headerBgColor:'', //头部区域的背景色
+          sideShowPosition:'', //控制导航的显示方式,可选值为left,left对应左侧固定菜单导航,值为空的时候为悬浮菜单
+          headerCenterImg:'', //控制头部logo的值
+          leftSideTheme:'', //导航菜单的主题,用来控制导航菜单是否反白有light和dark两个值
+          leftSideBgColor:'red', //菜单导航头部的背景色
+          leftSideBgImg:'', //菜单导航头部的背景图片
+          tabNum: 9 //控制页签的显示个数
         },
         searchVal: '',
 

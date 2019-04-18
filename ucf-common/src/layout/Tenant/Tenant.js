@@ -19,8 +19,10 @@ class Tenant extends Component {
         this.state = {
           showTenant: false,
             tenant:[],
-            tenantNameVal:''
+            tenantNameVal:'',
+            selectTenantVal:''
         };
+        this.tenantChange = this.tenantChange.bind(this);
     }
 
     async componentDidMount(){
@@ -77,33 +79,66 @@ class Tenant extends Component {
             })
         }, false);
     }
+  async tenantChange (val) {
+    // alert(val);
+    let _this = this;
+    _this.setState({
+      selectTenantVal: val
+    })
+    let res  = processData(await api.setTenant({tenantId:val}))
+    if(res){
+        window.location.reload();
+    }
+  }
     render() {
 
         var self = this;
         let  tenants  = this.state.tenant;
         let {showTenant} = this.state;
         let tenantNameVal = this.state.tenantNameVal;
+        let selectTenantVal = this.state.selectTenantVal;
+        let option = tenants.map((item,index)=>{
+          return <Option value={item.tenantId} key={item.tenantId} title={item.tenantName} className="tenant-item">{item.tenantName}</Option>;
+        })
+        if(tenants.length>0 ) {
+          selectTenantVal = tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantId
+        }
         return (
-            tenants.length > 0? <div mode="horizontal"  className={showTenant?"header-right-tenant-info header-right-tenant-info-focus":"header-right-tenant-info"} style={{ width: '100px' }}>
-                    <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" onClick={this.tenantClick}>
-                        {<span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>}
-                        {showTenant?<i className=" uf uf-gridcaretarrowup"></i>:<i className=" uf uf-treearrow-down"></i>}
-                        {/*<span className="iconfont icon-arrowdown"></span>*/}
-                    </a>
-                    <ul className={showTenant?"header-right-tenant-info-li header-right-tenant-info-li-show":"header-right-tenant-info-li header-right-tenant-info-li-hide"} >
-                    {
-                        tenants.map(function (item) {
-                            return (
-                                <li title={ item.tenantName} className="tenant-item" style={{paddingLeft:16}}>
-                                    <a  name ={item.tenantName} id ={item.tenantId} onClick={(e) => self.handleSelect(e)} >
-                                        {item.tenantName}
-                                    </a>
-                                </li>
-                            )
-                        })
-                    }
-                  </ul>
-            </div>:""
+          tenants.length > 0?
+          <Select dropdownClassName="tenant-select"
+            defaultValue={selectTenantVal}
+            style={{ marginRight: 6 , width: 100}}
+            onChange={self.tenantChange}
+          >
+          {
+            option
+          }
+          {/*
+          tenants.map((item,index)=>{
+            return <Option value={item.tenantId} key={item.tenantId} title={item.tenantName} className="tenant-item">{item.tenantName}</Option>;
+          })
+          */}
+          </Select>:''
+            // tenants.length > 0? <div mode="horizontal"  className={showTenant?"header-right-tenant-info header-right-tenant-info-focus":"header-right-tenant-info"} style={{ width: '100px' }}>
+            //         <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" onClick={this.tenantClick}>
+            //             {<span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>}
+            //             {showTenant?<i className=" uf uf-gridcaretarrowup"></i>:<i className=" uf uf-treearrow-down"></i>}
+            //             {/*<span className="iconfont icon-arrowdown"></span>*/}
+            //         </a>
+            //         <ul className={showTenant?"header-right-tenant-info-li header-right-tenant-info-li-show":"header-right-tenant-info-li header-right-tenant-info-li-hide"} >
+            //         {
+            //             tenants.map(function (item) {
+            //                 return (
+            //                     <li title={ item.tenantName} className="tenant-item" style={{paddingLeft:16}}>
+            //                         <a  name ={item.tenantName} id ={item.tenantId} onClick={(e) => self.handleSelect(e)} >
+            //                             {item.tenantName}
+            //                         </a>
+            //                     </li>
+            //                 )
+            //             })
+            //         }
+            //       </ul>
+            // </div>:""
         )
     }
 }
