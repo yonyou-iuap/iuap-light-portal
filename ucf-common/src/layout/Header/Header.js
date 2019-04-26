@@ -147,13 +147,6 @@ class App extends Component {
 
         let value = tar.getAttribute('value');
 
-
-        let data = {
-            current: value,
-            showNotice:0,
-            reload:0
-        };
-
         if(typeof value == 'undefined'||value==null){
             return false;
         }
@@ -179,71 +172,75 @@ class App extends Component {
             id:value
         };
 
-
-        let menu = menus;
-
-
-        //点击已经选中的节点时
-        if(value==current){
-            var url = location.hash;
-            //window.router.dispatch('on', url.replace('#',''));
-        }
-        else {
-            if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
-                return false;
-            }
-            else {
-                var menuObj = JSON.parse(JSON.stringify(menu));
-
-
-                if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
-                    actions.app.updateState({
-                        showNotice:1
-                    });
-                    // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                    // return false;
-                }
-                else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
-                    data = {
-                        current: value,
-                        showNotice:0,
-                        reload:reload?1:0,
-                        currentRouter:reload?decodeURIComponent(decodeURIComponent(router.replace('#\/ifr\/',''))):''
-                    };
-                }
-                actions.app.updateState(data);
-            }
-        }
-        this.createTab(options);
+        window.createTab(options);
     }
     createTab (options,value) {
         var self = this;
-        var {menus} = this.props;
+        var {menus,current,themeObj} = this.props;
 
         if(!window.sessionStorage){
             alert('This browser does NOT support sessionStorage');
             return false;
         }
-
-
         var menu = menus;
-
-
-        if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
-            return false;
+        let data = {
+          current: options.id,
         }
 
+        //点击的页签已经存在
+        if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
+          let moreFlag = false;
+          let obj = {};
+            if(options.refresh){
+                for(let i = 0; i < menuObj.length;i++){
+                    let nowMenu = menuObj[i];
+                    if(nowMenu.id === options.id){
+                        menuObj[i] = options;
+                        break;
+                    }
+                }
+                data.menus = menuObj;
+            }
+            if(menu.length >= themeObj.tabNum) {
+              for (var i = themeObj.tabNum; i < menu.length; i++) {
+                if(menu[i].id === options.id){
+                  moreFlag = true;
+                  obj =menu[i];
+                  break;
+                } else {
+                  moreFlag = false;
+                }
+              }
+              if(moreFlag) {
+                for (var i = 0; i < menu.length; i++) {
+                      if(menu[i].id === options.id) {
+                        menu.splice(i,1);
+                      }
+                    }
+                    menu.splice(1,0,obj);
+              }
+            }
+            data.menus = menu;
+            actions.app.updateState(data);
+            return false;
+        }
+        //点击的页签不存在
+        if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"') === -1) {
+          if(menu.length >= themeObj.tabNum) {
+            menu.splice(1,0,options);
+          } else {
+            menu[menu.length] = options;
+          }
+        }
 
         var menuObj = JSON.parse(JSON.stringify(menu));
-
 
 
         // if(menuObj.length==11) {
         //     return false;
         // }
 
-        menuObj[menuObj.length] = options;
-
+        // menuObj[menuObj.length] = options;
 
         sessionStorage['tabs'] = JSON.stringify(menuObj);
 
@@ -253,6 +250,7 @@ class App extends Component {
 
         actions.app.updateState({
             menus:menuObj,
+            reload:0,
             current:options.id
         });
 

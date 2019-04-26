@@ -20,7 +20,7 @@ export const Warning = (msg) => {
  * @param {*} successMsg 成功提示
  */
 export const processData = (response,successMsg) => {
-    let url = response.config.url;
+    let url = response && response.config && response.config.url;
     let errorMsg = '';
     if(typeof response != 'object') {
         Error('数据返回出错：1、请确保服务运行正常；2、请确保您的前端工程代理服务正常；3、请确认您已在本地登录过应用平台');

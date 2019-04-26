@@ -99,7 +99,7 @@ class HeaderRight extends Component {
                 {
                   <Select
                     defaultValue={langCode}
-                    style={{ marginRight: 6 , width: 100, display: langDisplay}}
+                    style={{ marginRight: 6 , width: 80, display: langDisplay}}
                     onChange={this.handleChange}
                   >
                     {this.initOption("lang",langList)}

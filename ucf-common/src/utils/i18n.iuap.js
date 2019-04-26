@@ -11,7 +11,8 @@
  * 设置语言类型： 默认为中文
  */
 var defaultLocales = "zh_CN";
-
+var i18nConfig = window.iuapConfig || window.parent.iuapConfig || window.top.iuapConfig || {}
+var i18nContextId = i18nConfig.context || 'wbalone';
 /*
  * 后台获取的语种描述信息
  */
@@ -320,7 +321,9 @@ function getNavLocales () {
     if (navLanguage.length > 3) {
         navLanguage = navLanguage.substring(0, 3) + navLanguage.substring(3).toUpperCase();
     }
-
+	if(i18nContextId === 'mdm'){
+		navLanguage = 'zh_CN'
+	}
 	return navLanguage;
 };
 

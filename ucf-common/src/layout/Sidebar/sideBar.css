@@ -131,6 +131,9 @@
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup>a:hover {
   /* background-color: rgba(236,239,241,1); */
 }
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup.menu-popup-one>a:hover {
+  background-color: rgba(236,239,241,1);
+}
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup .shoucanged {
   display: inline-block;
   position: absolute;

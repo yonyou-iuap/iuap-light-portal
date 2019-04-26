@@ -39,6 +39,7 @@ export default {
         headerTheme: 'light',
         headerBgImg:'',
         headerBgColor:'',
+        moreMenuList:[],//更多页签的数组
         // themeObj:{
         //   headerTheme: 'light',
         //   headerBgImg:'',
@@ -58,7 +59,7 @@ export default {
           leftSideTheme:'', //导航菜单的主题,用来控制导航菜单是否反白有light和dark两个值
           leftSideBgColor:'red', //菜单导航头部的背景色
           leftSideBgImg:'', //菜单导航头部的背景图片
-          tabNum: 9 //控制页签的显示个数
+          tabNum: 10 //控制页签的显示个数
         },
         searchVal: '',
 
@@ -101,7 +102,7 @@ export default {
                 leftSideTheme:'light',
                 leftSideBgColor:'',
                 leftSideBgImg:'',
-                tabNum: 9
+                tabNum: 10
               }
             if(obj1.headerTheme === '') {
               obj1.headerTheme = 'light';

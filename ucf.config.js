@@ -27,7 +27,7 @@ module.exports = (env, argv) => {
             "headers": {
                 "Referer": "http://172.20.52.123"
             },
-            "router": ["/iuap-pap-demo-be", "/iuap-pap-demo-fe", "/react_example_fe", "/iuap-saas-billcode-service", "/newref", "/pap_basedoc", "/react_example", "/example", "/iuap-saas-filesystem-service", "/uitemplate_web", "/eiap-plus", "/iuap-saas-message-center", "/reactfe", "/iuap-saas-busilog-service", "/iuap-eiap-bpm-service", "/iuap-saas-dispatch-service", "/iuaprmodel", "/uui"],
+            "router": ["/iuapmdm_fr","/iuapmdm","/group1","/iuap-pap-demo-be", "/iuap-pap-demo-fe", "/react_example_fe", "/iuap-saas-billcode-service", "/newref", "/pap_basedoc", "/react_example", "/example", "/iuap-saas-filesystem-service", "/uitemplate_web", "/eiap-plus", "/iuap-saas-message-center", "/reactfe", "/iuap-saas-busilog-service", "/iuap-eiap-bpm-service", "/iuap-saas-dispatch-service", "/iuaprmodel", "/uui"],
             "url": "http://172.20.52.123"
         }],
         // 构建资源的时候产出sourceMap，调试服务不会生效

@@ -39,7 +39,9 @@ class App extends Component {
         this.delTrigger();
         this.showMenu = this.showMenu.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.sideBarLoadList = this.sideBarLoadList.bind(this);
         window.handleClick = this.handleClick;
+        window.sideBarLoadList = this.sideBarLoadList;
     }
 
 
@@ -137,12 +139,12 @@ class App extends Component {
                 var menuObj = JSON.parse(JSON.stringify(menu));
 
 
-                if(menuObj.length==11&&JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
+                if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
                     actions.app.updateState({
                         showNotice:1
                     })
-                    Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                    return false;
+                    // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
+                    // return false;
                 }
                 else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
                     data = {
@@ -156,7 +158,7 @@ class App extends Component {
 
             }
         }
-        this.createTab(options);
+        window.createTab(options);
     }
 
     openTab(e,reload,item){
@@ -188,36 +190,7 @@ class App extends Component {
             router:router,
             id:value
         };
-        let menu = menus;
-        if(value ===current ){
-          var url = location.hash;
-        } else {
-          if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
-              return false;
-          }
-          else {
-              var menuObj = JSON.parse(JSON.stringify(menu));
-
-
-              if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
-                  actions.app.updateState({
-                      showNotice:1
-                  });
-                  // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                  // return false;
-              }
-              else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
-                  data = {
-                      current: value,
-                      showNotice:0,
-                      reload:reload?1:0,
-                      currentRouter:reload?decodeURIComponent(decodeURIComponent(router.replace('#\/ifr\/',''))):''
-                  };
-              }
-              actions.app.updateState(data);
-          }
-        }
-        this.createTab(options);
+        window.createTab(options);
         let {sideBarShow} = this.props;
         actions.app.updateState({
           sideBarShow: !sideBarShow
@@ -498,7 +471,7 @@ class App extends Component {
         self.confirm();
     }
 
-    async componentWillMount() {
+    async sideBarLoadList(){
         var self = this;
         //获取加载的菜单信息
         var menus = await actions.app.loadList();
@@ -551,6 +524,10 @@ class App extends Component {
         // console.log('123eeee',this.props);
     }
 
+    componentWillMount() {
+        this.sideBarLoadList();
+    }
+
     initRouter() {
         var self = this;
         let {menu,menus} = this.props;
@@ -561,19 +538,6 @@ class App extends Component {
         if(locale_serial == 1) {
             locale_serial = "";
         }
-        //if(this.state.menu.length==0) return false;
-
-        // this.state.menu[0].children = this.state.menu[0].children==null?[]:this.state.menu[0].children;
-
-        // var item = this.state.menu[0].children!=null&&this.state.menu[0].children.length==0?this.state.menu[0]:this.state.menu[0].children[0];
-        // var blank = item.openview=="newpage"?"_blank":"";
-        // var oUrl = '',uri = encodeURIComponent(encodeURIComponent(item.location));
-        // if(blank){
-        //     oUrl = '#/ifrNoHead/' + uri;
-        // }else{
-        //     oUrl = '#/ifr/' + uri;
-        // }
-        // var url = oUrl.replace('#','');
 
         var item = menu[0]?menu[0]:{
             "location" : "pages/default/index.js",
@@ -650,8 +614,6 @@ class App extends Component {
 
         setTimeout(function () {
 
-            // var menu = dom.find('.u-menu');
-            // var arrow = dom.find('.arrow-menu');
             var menu = dom.children[0];
             var menu2 = dom.children[1].children[2];
             var arrow = dom.children[1].children[0];
@@ -683,29 +645,9 @@ class App extends Component {
                 arrow.style.top = '14px';
             }
 
-            // if(parseInt(dom.offset().top)+parseInt(menu.height())>h){
-            //
-            //     if(parseInt(menu.height())>parseInt(dom.offset().top)){
-            //         menu.css({'bottom':-(h-parseInt(dom.offset().top)-50-20),'top':'inherit'});
-            //         arrow.css({'bottom':(h-parseInt(dom.offset().top)-50)+15-20,'top':'inherit'});
-            //     }
-            //     else {
-            //         menu.css({'bottom':"0",'top':'inherit'});
-            //         arrow.css({'bottom':"14px",'top':'inherit'})
-            //     }
-            // }
-            // else {
-            //     menu.css({'bottom':"inherit",'top':'0'});
-            //     arrow.css({'bottom':"inherit",'top':'14px'})
-            // }
         },0)
     }
     menubar() {
-        // var cH = document.body.scrollHeight-60;
-        // var sH = this.refs.uMenu.clientHeight;
-        // if(sH>cH){
-        //     this.refs.moreBar.style.display = 'block'
-        // }
     }
     scrollMenu(value,e){
 
@@ -755,7 +697,6 @@ class App extends Component {
                 setTimeout(()=>{
                     window.unloadNum = 0
                 }, 5000)
-                debugger;
                 console.log('临时log用于解决离开时多次提示的问题----onbeforeunload')
                 return '关闭后您打开的页签数据会自动清空'
             }
@@ -842,34 +783,6 @@ class App extends Component {
         leftExpanded: !leftExpanded
       })
     }
-    // sideTheme = () => {
-    //   let {themeObj} = this.props;
-    //   let defaultBgImg = '';
-    //   if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
-    //     defaultBgImg = 'images/index/dark_bg_img.jpg';
-    //   }
-    //   if(themeObj.leftSideTheme === 'dark') {
-    //     let obj = {
-    //       leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
-    //       leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
-    //       leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-    //     }
-    //     actions.app.updateState({
-    //       themeObj:Object.assign(themeObj,obj)
-    //     })
-    //   }
-    //   if(themeObj.leftSideTheme === 'light') {
-    //     let obj = {
-    //       leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
-    //       leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
-    //       leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-    //     }
-    //     actions.app.updateState({
-    //       themeObj:Object.assign(themeObj,obj)
-    //     })
-    //   }
-    //
-    // }
     render() {
         var self = this;
         const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded} = this.props;
@@ -894,14 +807,9 @@ class App extends Component {
                         menu.map(function (item,index1) {
                             let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
                             var noSecond = 'only-second-menu';
-                            var curHeight = 0;
-                            var curHeight2 =0;
-                            var sercurHeight = 0;
-                            var sercurHeight2 =0;
                             if(Array.isArray(item.children)&&item.children.length>0){
                                 let list = [];
                                 var menulist = [[],[]];
-                                var searchmenuList = [[],[]];
                                 var pages = 0;
 
                                 let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
@@ -927,22 +835,6 @@ class App extends Component {
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                data-menuId={itit.menuId} title={'收藏'}></i></li>
                                             list2.push(html)
-                                            if( itit.name.indexOf(menuSearch[index1])>=0) {
-
-                                                let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
-                                                                  data-areaId={itit.areaId}
-                                                                  title={itit['name'+locale_serial]}
-                                                                  data-ahref={self.changeAhref(itit)}
-                                                                  data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                                  ref={itit.id} name={itit['name'+locale_serial]}
-                                                                  href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                   onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                                   data-menuId={itit.menuId} title={'收藏'}></i></li>
-
-                                                searchlist.push(html)
-                                            }
-
 
                                         });
                                         if( list2.length>0) {
@@ -955,70 +847,23 @@ class App extends Component {
                                                     </ul>
                                                 </div>
                                             </div>;
-                                            if(curHeight <= curHeight2){
-                                                curHeight += cellH;
-                                                menulist[0].push (html)
-                                            }else{
-                                                curHeight2 += cellH;
-                                                menulist[1].push (html)
-                                            }
-                                        }
-                                        if( searchlist.length>0) {
-                                            var  cellH = Math.ceil(searchlist.length/3)*25+52;
-                                            var html = <div className={'menu-popup'}>
-                                                {title}
-                                                <div className="third-menu-content">
-                                                    <ul className="third-menu-list">
-                                                        {searchlist}
-                                                    </ul>
-                                                </div>
-                                            </div>;
-                                            if(sercurHeight <= sercurHeight2){
-                                                sercurHeight += cellH;
-                                                searchmenuList[0].push (html)
-                                            }else{
-                                                sercurHeight2 += cellH;
-                                                searchmenuList[1].push (html)
-                                            }
-                                        }
+                                            menulist[0].push (html)
 
-                                        // }
+                                        }
                                     } else {
-                                        // curHeight = 46+ curHeight;
-                                        let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
-
-
                                         var  cellH = 46;
-                                        let  html = <div className={'menu-popup'}>
+                                        let  html = <div className={'menu-popup menu-popup-one'}>
                                             <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
                                         </div>
-                                        if(curHeight <= curHeight2){
-                                            curHeight += cellH;
-                                            menulist[0].push(html)
-                                        }else{
-                                            curHeight2 += cellH;
-                                            menulist[1].push(html)
-                                        }
-                                        if( it.name.indexOf(menuSearch[index1])>=0) {
-                                            if(sercurHeight <= sercurHeight2){
-                                                sercurHeight += cellH;
-                                                searchmenuList[0].push (html)
-                                            }else{
-                                                sercurHeight2 += cellH;
-                                                searchmenuList[1].push (html)
-                                            }
-                                        }
+                                        menulist[0].push(html)
+
 
 
                                     }
 
                                 });
-
-
-                                var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
-                                var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
 
                                 return (
                                     /* 此处要考虑原有的submenu的逻辑 */
@@ -1052,14 +897,11 @@ class App extends Component {
                                 if(index1 === dddd){
                                     let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
                                 var noSecond = 'only-second-menu';
-                                var curHeight = 0;
-                                var curHeight2 =0;
-                                var sercurHeight = 0;
-                                var sercurHeight2 =0;
+
                                 if(Array.isArray(item.children)&&item.children.length>0){
                                     let list = [];
                                     var menulist = [[],[]];
-                                    var searchmenuList = [[],[]];
+
                                     var pages = 0;
 
                                     let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
@@ -1085,22 +927,6 @@ class App extends Component {
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                    data-menuId={itit.menuId} title={'收藏'}></i></li>
                                                 list2.push(html)
-                                                if( itit.name.indexOf(menuSearch[index1])>=0) {
-
-                                                    let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
-                                                                      data-areaId={itit.areaId}
-                                                                      title={itit['name'+locale_serial]}
-                                                                      data-ahref={self.changeAhref(itit)}
-                                                                      data-licenseControlFlag={itit.licenseControlFlag}
-                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                                      ref={itit.id} name={itit['name'+locale_serial]}
-                                                                      href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                       onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                                       data-menuId={itit.menuId} title={'收藏'}></i></li>
-
-                                                    searchlist.push(html)
-                                                }
-
 
                                             });
                                             if( list2.length>0) {
@@ -1113,81 +939,31 @@ class App extends Component {
                                                         </ul>
                                                     </div>
                                                 </div>;
-                                                if(curHeight <= curHeight2){
-                                                    curHeight += cellH;
-                                                    menulist[0].push (html)
-                                                }else{
-                                                    curHeight2 += cellH;
-                                                    menulist[1].push (html)
-                                                }
+                                                menulist[0].push (html)
                                             }
-                                            if( searchlist.length>0) {
-                                                var  cellH = Math.ceil(searchlist.length/3)*25+52;
-                                                var html = <div className={'menu-popup'}>
-                                                    {title}
-                                                    <div className="third-menu-content">
-                                                        <ul className="third-menu-list">
-                                                            {searchlist}
-                                                        </ul>
-                                                    </div>
-                                                </div>;
-                                                if(sercurHeight <= sercurHeight2){
-                                                    sercurHeight += cellH;
-                                                    searchmenuList[0].push (html)
-                                                }else{
-                                                    sercurHeight2 += cellH;
-                                                    searchmenuList[1].push (html)
-                                                }
-                                            }
-
                                             // }
                                         } else {
-                                            // curHeight = 46+ curHeight;
-                                            let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
-
-
-                                            var  cellH = 46;
-                                            let  html = <div className={'menu-popup'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                                                                                                                                                                                                           onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                                                                                                                                                                                                                                                                                           data-menuId={it.menuId} title={'收藏'}></i></a>
+                                            let  html = <div className={'menu-popup menu-popup-one'}>
+                                                <a target={blank} value={it.id} data-areaId ={it.areaId}
+                                                   data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
+                                                   onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
+                                                   href={self.formmaterUrl(it)}>{it['name'+locale_serial]}
+                                                   <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                      onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }data-menuId={it.menuId} title={'收藏'}>
+                                                   </i></a>
                                             </div>
-                                            if(curHeight <= curHeight2){
-                                                curHeight += cellH;
-                                                menulist[0].push(html)
-                                            }else{
-                                                curHeight2 += cellH;
-                                                menulist[1].push(html)
-                                            }
-                                            if( it.name.indexOf(menuSearch[index1])>=0) {
-                                                if(sercurHeight <= sercurHeight2){
-                                                    sercurHeight += cellH;
-                                                    searchmenuList[0].push (html)
-                                                }else{
-                                                    sercurHeight2 += cellH;
-                                                    searchmenuList[1].push (html)
-                                                }
-                                            }
-
-
+                                            menulist[0].push(html)
                                         }
 
                                     });
-
-
-                                    var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
-                                    var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
-
                                    return  menulist.map(function(ite,i){
                                         ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
                                         return (
                                             ite
                                         )
                                     })
-
                                 }
                                 }
-
 
                             })
                         }
@@ -1206,15 +982,9 @@ class App extends Component {
                     menu.map(function (item,index1) {
                         let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
                         var noSecond = 'only-second-menu';
-                        var curHeight = 0;
-                        var curHeight2 =0;
-                        var sercurHeight = 0;
-                        var sercurHeight2 =0;
                         if(Array.isArray(item.children)&&item.children.length>0){
                             let list = [];
                             var menulist = [[],[]];
-                            var searchmenuList = [[],[]];
-                            var pages = 0;
 
                             let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
                             item.children.map(function(it,index2){
@@ -1227,7 +997,6 @@ class App extends Component {
                                     noSecond = 'no-second-menu';
                                     it.children.map(function(itit,index3){
                                         let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-
                                         let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                           data-areaId={itit.areaId}
                                                           title={itit['name'+locale_serial]}
@@ -1239,23 +1008,6 @@ class App extends Component {
                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                            data-menuId={itit.menuId} title={'收藏'}></i></li>
                                         list2.push(html)
-                                        if( itit.name.indexOf(menuSearch[index1])>=0) {
-
-                                            let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
-                                                              data-areaId={itit.areaId}
-                                                              title={itit['name'+locale_serial]}
-                                                              data-ahref={self.changeAhref(itit)}
-                                                              data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                              ref={itit.id} name={itit['name'+locale_serial]}
-                                                              href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                               onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                               data-menuId={itit.menuId} title={'收藏'}></i></li>
-
-                                            searchlist.push(html)
-                                        }
-
-
                                     });
                                     if( list2.length>0) {
                                         var  cellH = Math.ceil(it.children.length/3)*25+52;
@@ -1267,71 +1019,25 @@ class App extends Component {
                                                 </ul>
                                             </div>
                                         </div>;
-                                        if(curHeight <= curHeight2){
-                                            curHeight += cellH;
-                                            menulist[0].push (html)
-                                        }else{
-                                            curHeight2 += cellH;
-                                            menulist[1].push (html)
-                                        }
-                                    }
-                                    if( searchlist.length>0) {
-                                        var  cellH = Math.ceil(searchlist.length/3)*25+52;
-                                        var html = <div className={'menu-popup'}>
-                                            {title}
-                                            <div className="third-menu-content">
-                                                <ul className="third-menu-list">
-                                                    {searchlist}
-                                                </ul>
-                                            </div>
-                                        </div>;
-                                        if(sercurHeight <= sercurHeight2){
-                                            sercurHeight += cellH;
-                                            searchmenuList[0].push (html)
-                                        }else{
-                                            sercurHeight2 += cellH;
-                                            searchmenuList[1].push (html)
-                                        }
+
+                                        menulist[0].push (html)
+
                                     }
 
-                                    // }
                                 } else {
-                                    // curHeight = 46+ curHeight;
-                                    let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
-
-
-                                    var  cellH = 46;
-                                    let  html = <div className={'menu-popup'}>
-                                        <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                                                                                                                                                                                                   onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                                                                                                                                                                                                                                                                                   data-menuId={it.menuId} title={'收藏'}></i></a>
+                                    let  html = <div className={'menu-popup menu-popup-one'}>
+                                        <a target={blank} value={it.id} data-areaId ={it.areaId}
+                                           data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
+                                           onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
+                                           href={self.formmaterUrl(it)}>{it.name}
+                                           <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                              onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
+                                              data-menuId={it.menuId} title={'收藏'}></i></a>
                                     </div>
-                                    if(curHeight <= curHeight2){
-                                        curHeight += cellH;
-                                        menulist[0].push(html)
-                                    }else{
-                                        curHeight2 += cellH;
-                                        menulist[1].push(html)
-                                    }
-                                    if( it.name.indexOf(menuSearch[index1])>=0) {
-                                        if(sercurHeight <= sercurHeight2){
-                                            sercurHeight += cellH;
-                                            searchmenuList[0].push (html)
-                                        }else{
-                                            sercurHeight2 += cellH;
-                                            searchmenuList[1].push (html)
-                                        }
-                                    }
-
-
+                                    menulist[0].push(html)
                                 }
 
                             });
-
-
-                            var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
-                            var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
-
                             return (
                                 /* 此处要考虑原有的submenu的逻辑 */
                                 <div onMouseEnter={(e)=>self.leftMouseEnter(e,item,menulist,index1)} onMouseLeave={(e)=>{self.leftMouseLeave(e,item,menulist,index1)}} className="side-bar-first">
@@ -1372,9 +1078,7 @@ class App extends Component {
             </div>
           }
           </div>
-            // <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
 
-            // </div>
         )
     }
 }

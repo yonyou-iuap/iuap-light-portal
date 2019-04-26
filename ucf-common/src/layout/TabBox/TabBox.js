@@ -30,18 +30,18 @@ class Tab extends Component {
     }
 
     setCurrent (id) {
-        let morelist = this.state.moreMenuList;
+        // let morelist = this.state.moreMenuList;
         let menuProp = this.props.menus;
-        let {themeObj} = this.props;
+        let {themeObj,current} = this.props;
         let list = [];
         let obj={};
         let moreFlag = false;
-        if(morelist.length > 0) {
-          // return;
-          for (var i = 0; i < morelist.length; i++) {
-            if(morelist[i].id === id) {
+        // debugger;
+        if(menuProp.length > themeObj.tabNum) {
+          for (var i = themeObj.tabNum; i < menuProp.length; i++) {
+            if(menuProp[i].id === id){
               moreFlag = true;
-              obj = morelist[i];
+              obj = menuProp[i];
               break;
             } else {
               moreFlag = false;
@@ -49,21 +49,20 @@ class Tab extends Component {
           }
           if(moreFlag) {
             for (var i = 0; i < menuProp.length; i++) {
-              if(menuProp[i].id === id) {
-                menuProp.splice(i,1);
-              }
-            }
-            menuProp.splice(themeObj.tabNum,0,obj);
+                  if(menuProp[i].id === id) {
+                    menuProp.splice(i,1);
+                  }
+                }
+                menuProp.splice(1,0,obj);
           }
         }
-
-        // console.log('123',this.props.menus);
         actions.app.updateState({
             current: id,
             showNotice:0,
             reload:0,
             // menus: menuProp
         })
+        // sessionStorage['tabs'] = JSON.stringify(menuProp);
         sessionStorage['current'] = JSON.stringify({
             current:id
         });
@@ -72,7 +71,6 @@ class Tab extends Component {
     del (id) {
 
         const {menus,current} = this.props;
-
 
         var menuCloned = JSON.parse(JSON.stringify(menus));
 
@@ -187,7 +185,10 @@ class Tab extends Component {
         const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded,themeObj} = this.props;
         // let {tabsMore} = this.props;
         const moremenu=[];
-        this.state.moreMenuList = [];
+        // this.state.moreMenuList = [];
+        //   let moreMenu = []
+        //   let menusss = []
+
         // console.log(menus);
         // debugger;
         return (
@@ -207,9 +208,9 @@ class Tab extends Component {
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
-                                if(index > themeObj.tabNum) {
+                                if(index > (themeObj.tabNum-1)) {
                                   moremenu.push(item);
-                                  self.state.moreMenuList = moremenu;
+                                  // self.state.moreMenuList = moremenu;
 
                                 } else {
                                   liDom = <li key={item.id} className={selected}>
@@ -225,7 +226,7 @@ class Tab extends Component {
                             })
                         }
                         {
-                          menus.length>(themeObj.tabNum+1)? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                          menus.length>themeObj.tabNum? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
                           {
                             moremenu.map(function(item1,index1){
                               return (

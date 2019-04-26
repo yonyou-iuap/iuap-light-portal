@@ -16,6 +16,7 @@ class HeaderLeft extends Component {
       this.searchSideClick = this.searchSideClick.bind(this);
       this.searchTabClick = this.searchTabClick.bind(this);
       this.inputDown = this.inputDown.bind(this);
+      this.searchBlur = this.searchBlur.bind(this);
       // this.searchHtml = this.searchHtml.bind(this);
     }
     componentDidMount() {
@@ -28,6 +29,13 @@ class HeaderLeft extends Component {
         sideBarShow: !sideBarShow
       })
       // $('.left-side-bar ').an
+    }
+    searchBlur() {
+      // let self = this;
+      // self.setState({
+      //   sideSearchShow:false,
+      //   sideSearchVal: ''            
+      // })
     }
     searchInput = (val) => {
       this.setState({
@@ -83,7 +91,7 @@ class HeaderLeft extends Component {
         title5: item.name5,
         title6: item.name6
       }
-      window.createTab(options);
+      window.createTab(options,item.id);
       this.setState({
         sideSearchShow: false,
         sideSearchVal: ''
@@ -156,7 +164,7 @@ class HeaderLeft extends Component {
                 </svg>*/}
               </div>
               <div className="header-search">
-                <input type="text" placeholder={this.props.placeholder} value={sideSearchVal} onChange={(e)=>{self.searchInput(e)}} onKeyUp={(event) => {self.inputDown(event)}}/>
+                <input type="text" placeholder={this.props.placeholder} onBlur={self.searchBlur}value={sideSearchVal} onChange={(e)=>{self.searchInput(e)}} onKeyUp={(event) => {self.inputDown(event)}}/>
                 <i className = "uf uf-search" onClick={self.searchSideClick} />
                 {/*this.searchHtmlFun()*/}
                 {
@@ -164,7 +172,7 @@ class HeaderLeft extends Component {
                   sideSearchList.length>0?<ul className="search-info">
                   {
                     sideSearchList.map((item)=>{
-                      return <li><a href="javascript:void(0)"  onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
+                      return <li><a href="javascript:void(0)" onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
                     })
                   }
                   </ul>:<ul className="search-info search-info-no-data"><li><FormattedMessage id="header.search.noData" defaultMessage="无数据"/></li></ul>

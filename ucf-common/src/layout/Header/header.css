@@ -93,7 +93,7 @@
   display: flex;
   height: 40px;
   align-items: center;
-  margin-right: 16px;
+  /*margin-right: 16px;*/
   justify-content: flex-end;
 
 }
@@ -201,6 +201,7 @@
 .header-right-info {
   position: relative;
   padding: 0 8px;
+  padding-right: 12px;
 }
 .header-right-info .dropdown-toggle {
   height: 40px;
@@ -209,6 +210,12 @@
 .header-right-info .avatar-name{
   font-size: 14px;
   margin-right: 0;
+  max-width: 112px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float: left;
 }
 .header-right-icon {
   margin-right: 4px;
@@ -298,7 +305,7 @@
 }
 /* 多租户 */
 .header-right-tenant {
-  width: 100px;
+  width: 124px;
   margin-right: 12px;
 }
 .header-right-tenant-info {
@@ -529,4 +536,8 @@
   white-space: nowrap;
   text-align: left;
   color: #666;
+}
+.search-info {
+  max-height: 300px;
+  overflow-y: scroll;
 }

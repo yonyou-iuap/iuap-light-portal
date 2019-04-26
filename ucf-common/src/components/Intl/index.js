@@ -8,6 +8,8 @@ import { setCookie, getCookie} from "utils";
 import zhCN from './locales/zh';
 import enUS from './locales/en';
 import zhTW from './locales/zh_tw';
+import {getContextId} from 'utils';
+const contextId = getContextId();
 
 
 addLocaleData([...en, ...zh]);
@@ -34,7 +36,9 @@ let language = (navigator.language || navigator.browserLanguage).toLowerCase();
 let locale =  (getCookie('u_locale')||language.split('_')[0].replace(/-/,'_')||"en_US")
 //TODO 封装到国际化组件中
 //TODO 语言动态
-
+if(contextId === 'mdm'){
+    locale = 'zh_CN'
+}
 let intlModel = {
     name: "intl",
     initialState: {

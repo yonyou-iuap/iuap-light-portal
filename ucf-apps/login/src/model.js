@@ -22,6 +22,7 @@ export default {
         checked: false, // 是否勾选记住用户名
         lastLoginIsRemember: false, // 上次是否记住名用户,
         forgetpswErrMsg: '', // 忘记密码错误信息
+        sendSMSDisable: true,
         forgetstep: 0, // 忘记密码当前步数
         forgetpsw: false, // 是否显示忘记密码,
         step1User: '', // 忘记密码记录账户
@@ -149,7 +150,7 @@ export default {
                     alert('后台返回数据有误')
                     return false;
                 }
-
+                
                 if (message.status == "50001" || message.status == "50002" || message.status == "50008" || message.status == "50009" || message.status == "50010" || message.status == "50011" || message.status == "50013" || message.status == "50014" || message.status == "50015" || message.status == "50016") {
                     actions.app.getVertifyImg(username);
                 }
@@ -186,7 +187,7 @@ export default {
                         //不符合密码策略  修改密码 弹出提示，为true则跳出修改密码，并且提示信息为message.msg，如果为false则重新提交并且设置pwdExpiredCancle为true
                         actions.app.updateState({
                             confirmShow: true,
-                            confirmTitle: message.msg,
+                            confirmMsg: message.msg,
                             loginAjaxParams: loginData
                         })
                     }
@@ -279,6 +280,7 @@ export default {
                 
                 var wait = 60;
                 actions.app.updateState({
+                    sendSMSDisable:false,
                     step2Wait: wait
                 })
                 var get_code_time = function() {
@@ -299,6 +301,7 @@ export default {
                 get_code_time();
             } else {
                 actions.app.updateState({
+                    sendSMSDisable: true,
                     forgetpswErrMsg: res.msg.replace('<br/>','')
                 })
             }

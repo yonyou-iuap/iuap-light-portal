@@ -439,8 +439,8 @@ class App extends Component {
     }
     
     render() {
-        let {langCode,langList,verfiyImg,errMsg,codeVerfiy,checked,username,password,forgetpswErrMsg,forgetpswVerfiyImg,forgetstep,forgetpsw,step2MsgType,step2Phone,step1User,step2Wait,confirmShow,confirmMsg,resetpwdDisabled,resetpsw,reststep,resetpswErrMsg,resetpswTitle} = this.props; 
-
+        let {langCode,langList,verfiyImg,errMsg,codeVerfiy,checked,username,password,forgetpswErrMsg,sendSMSDisable,forgetpswVerfiyImg,forgetstep,forgetpsw,step2MsgType,step2Phone,step1User,step2Wait,confirmShow,confirmMsg,resetpwdDisabled,resetpsw,reststep,resetpswErrMsg,resetpswTitle} = this.props; 
+        
         let m_top = codeVerfiy?"45px":"55px";
         let m_bottom = codeVerfiy?"30px":"60px";
         let img2=codeVerfiy?<div className="randDiv"><input className="u-form-control text1" ref="verfiyInput" onKeyDown={this.onEnter} id="verfiyInput" placeholder={this.props.intl.formatMessage({id: 'ht.pag.log.0016',defaultMessage:"验证码"})}/><img onClick={this.randImg} id="randImg" src={verfiyImg}/></div>:"";
@@ -460,7 +460,7 @@ class App extends Component {
             <div className="login-main">
                 <div className="login-top">
                     <div className="login-logo">
-                        <div className={logImg}><img src=""/></div>                                          
+                        <div className={logImg}></div>                                          
                     </div>
                     <div className="login-lang" style={{
                         display: langDisplay
@@ -555,7 +555,7 @@ class App extends Component {
                             <div className="psw-error-msg" id="psw-error-msg">{forgetpswErrMsg}</div>   
                         </LoginModal.Content>
                         <LoginModal.Foot>
-                            <Button className="modalOK" onClick={this.toForgetPswNext}>{this.props.intl.formatMessage({id: 'ht.pag.for.0012',defaultMessage:"下一步"})}</Button>
+                            <Button className="modalOK" disabled={sendSMSDisable} onClick={this.toForgetPswNext}>{this.props.intl.formatMessage({id: 'ht.pag.for.0012',defaultMessage:"下一步"})}</Button>
                             <Button className="modalCencel" onClick={this.closeForgetPsw}>{this.props.intl.formatMessage({id: 'ht.pag.log.0013',defaultMessage:"取消"})}</Button>
                             {/* <Button className="modalOK" onClick={this.toForgetPswPre}>{"上一步"}</Button> */}
                         </LoginModal.Foot>

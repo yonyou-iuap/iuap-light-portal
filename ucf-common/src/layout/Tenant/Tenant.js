@@ -107,7 +107,7 @@ class Tenant extends Component {
           tenants.length > 0?
           <Select dropdownClassName="tenant-select"
             defaultValue={selectTenantVal}
-            style={{ marginRight: 6 , width: 100}}
+            style={{ marginRight: 6 , width: 124}}
             onChange={self.tenantChange}
           >
           {
