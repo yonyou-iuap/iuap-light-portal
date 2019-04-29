@@ -24,6 +24,7 @@ mirror.defaults({
 if(contextId === 'mdm'){
     document.getElementById("login_div").classList.add("bgmdm")
 }
+document.getElementById("login_div").classList.add("displayBlock")
 
 
 render(<Intl>

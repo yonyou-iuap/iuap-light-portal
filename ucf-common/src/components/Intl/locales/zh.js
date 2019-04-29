@@ -361,7 +361,7 @@ const zh_CN = {
     'tabs.sidebar.rollUp':"通过滚动鼠标来移动菜单",
     'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
     'tabs.main.title':'用友iuap开发平台',
-    'header.search.placeholder':'应用查询',
+    'header.search.placeholder':'菜单查询',
     'header.search.noData':'无数据',
     'tabs.show.more':'更多'
 }

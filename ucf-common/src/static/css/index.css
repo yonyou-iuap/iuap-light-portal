@@ -711,7 +711,8 @@ body{
 	display:none;
 }
 .portal-logo.portal-logomdm{
-	width: 250px;
+	height: 35px;
+	width: 144px;
 }
 .portal-logo {
 	width: 127px;

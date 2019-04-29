@@ -191,16 +191,16 @@ class App extends Component {
         if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
           let moreFlag = false;
           let obj = {};
-            if(options.refresh){
-                for(let i = 0; i < menuObj.length;i++){
-                    let nowMenu = menuObj[i];
-                    if(nowMenu.id === options.id){
-                        menuObj[i] = options;
-                        break;
-                    }
-                }
-                data.menus = menuObj;
-            }
+            // if(options.refresh){
+            //     for(let i = 0; i < menuObj.length;i++){
+            //         let nowMenu = menuObj[i];
+            //         if(nowMenu.id === options.id){
+            //             menuObj[i] = options;
+            //             break;
+            //         }
+            //     }
+            //     data.menus = menuObj;
+            // }
             if(menu.length >= themeObj.tabNum) {
               for (var i = themeObj.tabNum; i < menu.length; i++) {
                 if(menu[i].id === options.id){
@@ -218,6 +218,13 @@ class App extends Component {
                       }
                     }
                     menu.splice(1,0,obj);
+              }
+            } else {
+              for (var i = 0; i < menu.length; i++) {
+                if(menu[i].id === options.id) {
+                  menu[i] = options;
+                  break;
+                }
               }
             }
             data.menus = menu;
