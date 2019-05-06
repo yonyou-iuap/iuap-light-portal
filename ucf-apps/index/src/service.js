@@ -22,7 +22,8 @@ const URL = {
  * @param {*} params
  */
 export const getList = (params) => {
-    let portalId = `${GROBAL_PORTAL_ID}`;
+    let portalId = `${GROBAL_PORTAL_CTX}`;
+    portalId = portalId.substring(1)
     let url;
     if(portalId === 'wbalone'){
         url =URL.GET_MENU+'&1=1';
