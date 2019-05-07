@@ -373,7 +373,7 @@ const zh_TW = {
     'tabs.sidebar.nodate':"未找到功能節點",
     'tabs.sidebar.rollUp':"通過滾動鼠標來移動功能",
     'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
-    'tabs.main.title':'用友iuap開發平台',
+    'tabs.main.title':'iuap應用開發平臺',
     'header.search.placeholder': '菜單查詢',
     'header.search.noData':'無數據',
     'tabs.show.more':'更多'

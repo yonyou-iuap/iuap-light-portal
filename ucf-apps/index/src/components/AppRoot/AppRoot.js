@@ -24,7 +24,7 @@ class App extends Component {
           // sideBarShow : false
         };
         let intl  = props.intl;
-        document.title = intl.formatMessage({id: 'tabs.main.title',defaultMessage:"用友iuap开发平台"});
+        document.title = intl.formatMessage({id: 'tabs.main.title',defaultMessage:"iuap应用开发平台"});
 
         // this.clickShow = this.clickShow.bind(this);
     }
