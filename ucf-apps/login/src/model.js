@@ -11,7 +11,7 @@ export default {
     name: "app",
     // 设置当前 Model 所需的初始化 state
     initialState: {
-        langCode: getCookie('u_locale') || 'zh_CN', // 当前语种
+        langCode: getCookie('u_locale')|| ((navigator.language || navigator.browserLanguage)).split('_')[0].replace(/-/,'_') || 'zh_CN', // 当前语种
         langList: [],// 多语列表
         username: '', // 用户名
         password: '', //密码

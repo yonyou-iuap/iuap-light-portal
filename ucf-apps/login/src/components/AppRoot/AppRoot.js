@@ -454,7 +454,7 @@ class App extends Component {
         if(resetpswErrMsg === 2 || resetpswErrMsg === 1){
             resetpswErrMsg =  this.props.intl.formatMessage({id: 'js.pag.log.0006',defaultMessage:"密码修改成功，"}) + resetpswErrMsg + this.props.intl.formatMessage({id: 'js.pag.log.0007',defaultMessage:"S后自动关闭"})
         }
-        let logImg = GROBAL_PORTAL_ID === 'wbalone'? 'logo-img' : 'logo-img-light'
+        let logImg = GROBAL_PORTAL_ID === 'wbalone'? 'logo-img-' + langCode : 'logo-img-light'
         let langDisplay = contextId === 'wbalone'? 'block' : 'none';
         return (
             <div className="login-main">

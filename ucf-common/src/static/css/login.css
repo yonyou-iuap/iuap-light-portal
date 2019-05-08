@@ -58,14 +58,36 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   border-left: 1px solid rgba(93,85,85,1);
   padding-left:15px;
 }
-.login-logo .logo-img{
+.login-logo .logo-img-zh_CN{
   margin-top:10px;
   float:left;
   padding-right:15px;
   width:130px;
   height: 60px;
+  background-size: 100%;
   background-repeat: no-repeat;
-  background-image: url("../images/logo.svg");
+  background-image: url("../images/logo_zh_CN.svg");
+}
+
+.login-logo .logo-img-zh_TW{
+  margin-top:10px;
+  float:left;
+  padding-right:15px;
+  width:130px;
+  height: 60px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-image: url("../images/logo_zh_TW.svg");
+}
+.login-logo .logo-img-en_US{
+  margin-top:10px;
+  float:left;
+  padding-right:15px;
+  width:130px;
+  height: 60px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-image: url("../images/logo_en_US.svg");
 }
 
 .bgmdm .login-logo .logo-img{

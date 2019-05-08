@@ -32,7 +32,7 @@ function chooseLocale(locale){
             break;
     }
 }
-let language = (navigator.language || navigator.browserLanguage).toLowerCase();
+let language = (navigator.language || navigator.browserLanguage);
 let locale =  (getCookie('u_locale')||language.split('_')[0].replace(/-/,'_')||"en_US")
 //TODO 封装到国际化组件中
 //TODO 语言动态
