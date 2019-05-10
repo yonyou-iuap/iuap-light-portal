@@ -19,7 +19,7 @@ export default (url, options) => {
             console.log("RBAC鉴权失败!"+err.response.data.msg);
             return Promise.resolve(err.response);
         }else if(err.response&&err.response.status==306){
-            let h = GROBAL_PORTAL_CTX === '/wbalone'?`${GROBAL_PORTAL_CTX}/user/beflogout`:`${GROBAL_PORTAL_CTX}/user/logout`;
+            let h = GROBAL_PORTAL_CTX === '/wbalone'?`${GROBAL_PORTAL_CTX}`:`${GROBAL_PORTAL_CTX}`;
             window.location.href = h ;
 
         }

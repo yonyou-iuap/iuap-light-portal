@@ -80,7 +80,8 @@ class HeaderLeft extends Component {
       this.props.headerRightOper.themeChange(val);
     }
     searchTabClick = (item) => {
-      let router = item.location+"?modulefrom=sidebar";
+      let itemRouter = window.formmaterUrl(item);
+      let router = itemRouter+"?modulefrom=sidebar";
       let options = {
         id: item.id,
         router:router,

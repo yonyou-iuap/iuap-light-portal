@@ -9,6 +9,7 @@
     "build": "ucf-scripts build && node build.js"
   },
   "devDependencies": {
+    "compression-webpack-plugin": "^2.0.0",
     "ucf-scripts": "1.1.5",
     "gulp": "^3.9.1",
     "gulp-zip": "^4.1.0"
