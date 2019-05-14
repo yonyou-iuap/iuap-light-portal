@@ -155,13 +155,14 @@ export default {
             }
             if(obj1.headerTheme === 'light') {
               let defaultBgImg ='';
-              if(getLocal === 'zh_CN') {
-                headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
-              } else if (getLocal === 'en_US') {
-                headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
-              } else {
-                headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
-              }
+                headerCenterDefaultImg =require(`../../../ucf-common/src/static/images/logo_${getLocal}.svg`);
+              // if(getLocal === 'zh_CN') {
+              //   headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
+              // } else if (getLocal === 'en_US') {
+              //   headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
+              // } else {
+              //   headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
+              // }
               if(!obj1.headerBgImg && !obj1.headerBgColor) {
                 defaultBgImg = '/wbalone/images/index/bg_topbar.jpg'
               }
@@ -279,14 +280,14 @@ export default {
               }
               let getLocal = cookie.load('u_locale')||'zh_CN';
               let defaultBgImg ='';
-              let headerCenterDefaultImg = '';
-                if(getLocal === 'zh_CN') {
-                  headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
-                } else if (getLocal === 'en_US') {
-                  headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
-                } else {
-                  headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
-                }
+              let headerCenterDefaultImg = require(`../../../ucf-common/src/static/images/logo_${getLocal}.svg`)
+                // if(getLocal === 'zh_CN') {
+                //   headerCenterDefaultImg = '/wbalone/images/index/logo_zh_CN.svg';
+                // } else if (getLocal === 'en_US') {
+                //   headerCenterDefaultImg = '/wbalone/images/index/logo_en_US.svg';
+                // } else {
+                //   headerCenterDefaultImg = '/wbalone/images/index/logo_zh_TW.svg';
+                // }
                 if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
                   defaultBgImg = '/wbalone/images/index/bg_topbar.jpg'
                 }
@@ -479,6 +480,7 @@ export default {
          */
         async setLocaleParam(newLocaleValue) {
             if (newLocaleValue && newLocaleValue.length > 0) {
+                setCookie('u_locale',newLocaleValue)
                 let res = processData(await api.setLocaleParam(newLocaleValue));
                 // if(res){
                     // let id = getCookie('_A_P_userId');

@@ -185,7 +185,6 @@ class App extends Component {
             alert('This browser does NOT support sessionStorage');
             return false;
         }
-
         var menu = menus;
         let data = {
           current: options.id,
@@ -231,6 +230,11 @@ class App extends Component {
                 }
               }
             }
+            for (var i = 0; i < menu.length; i++) {
+              if(menu[i].id === options.id) {
+                menu[i].notCreateIframe = false;
+              }
+            }
             data.menus = menu;
             actions.app.updateState(data);
             return false;
@@ -244,6 +248,12 @@ class App extends Component {
           }
         }
 
+        // debugger;
+        for (var i = 0; i < menu.length; i++) {
+          if(menu[i].id === options.id) {
+            menu[i].notCreateIframe = false;
+          }
+        }
         var menuObj = JSON.parse(JSON.stringify(menu));
 
 

@@ -200,7 +200,6 @@ class App extends Component {
 
 
     createTab (options,value) {
-
         var self = this;
         var {menus} = this.props;
 
@@ -254,7 +253,18 @@ class App extends Component {
 
         var menus = sessionStorage['tabs']!=undefined?JSON.parse(sessionStorage['tabs']):[];
         var current = sessionStorage['current']!=undefined?JSON.parse(sessionStorage['current']):'';
-
+        if(menus.length ===1) {
+          // menus[0].notCreateIframe = false;
+        }
+        if(menus.length > 1) {
+          for (var i = 0; i < menus.length; i++) {
+            if(menus[i].id === current.current ) {
+                // menus[i].createIframe = true;
+            } else{
+              menus[i].notCreateIframe = true;
+            }
+          }
+        }
         actions.app.updateState(
             {
                 menus:menus,
@@ -477,6 +487,7 @@ class App extends Component {
         var menus = await actions.app.loadList();
         // self.setMenu(menus);
         self.getTabs();
+
         window.menus = menus;
         window.getBreadcrumb = function (id) {
             var n1,n2,n3;
@@ -555,10 +566,8 @@ class App extends Component {
             "urltype" : "plugin",
             "id" : "index",
             "isDefault" : null,
-            "licenseControlFlag" : 0
+            "licenseControlFlag" : 0,
         };
-
-
         if (window.location.hash == ''|| window.location.hash == '#/') {
 
             if(this.state.isOpenTab){
@@ -572,9 +581,9 @@ class App extends Component {
                         title5: item.name5,
                         title6: item.name6,
                         router:self.formmaterUrl(item),
-                        id:item.id
+                        id:item.id,
                     };
-                    self.createTab(options);
+                    window.createTab(options);
                 }
             }
             else {

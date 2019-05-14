@@ -440,7 +440,12 @@ class App extends Component {
     
     render() {
         let {langCode,langList,verfiyImg,errMsg,codeVerfiy,checked,username,password,forgetpswErrMsg,sendSMSDisable,forgetpswVerfiyImg,forgetstep,forgetpsw,step2MsgType,step2Phone,step1User,step2Wait,confirmShow,confirmMsg,resetpwdDisabled,resetpsw,reststep,resetpswErrMsg,resetpswTitle} = this.props; 
-        
+        if(langCode != getCookie('u_locale')){
+            langCode = getCookie('u_locale')
+            actions.app.updateState({
+                langCode:langCode
+            })
+        }
         let m_top = codeVerfiy?"45px":"55px";
         let m_bottom = codeVerfiy?"30px":"60px";
         let img2=codeVerfiy?<div className="randDiv"><input className="u-form-control text1" ref="verfiyInput" onKeyDown={this.onEnter} id="verfiyInput" placeholder={this.props.intl.formatMessage({id: 'ht.pag.log.0016',defaultMessage:"验证码"})}/><img onClick={this.randImg} id="randImg" src={verfiyImg}/></div>:"";

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { addLocaleData, IntlProvider,injectIntl } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
-import mirror, { connect,withRouter } from 'mirrorx';
+import mirror, { connect,withRouter,actions } from 'mirrorx';
 import { setCookie, getCookie} from "utils";
 
 import zhCN from './locales/zh';
@@ -62,8 +62,15 @@ mirror.model(intlModel);
 
 class Inter extends Component {
     render() {
-        let {locale, localeData } = this.props;
-
+        let {locale,loginLocal, localeData } = this.props;
+        if(loginLocal && loginLocal!=locale){
+            locale = loginLocal
+            actions.intl.updateState({
+                locale: locale,
+                localeData:chooseLocale(locale)
+            })
+        }
+            
         return (
             <IntlProvider key={locale} locale={locale.replace(/_.+/ig,'')} messages={localeData} >
                 {this.props.children}

@@ -3,7 +3,7 @@
  */
 import { actions } from "mirrorx";
 import * as api from "./service";
-import { processData, getCookie } from "utils";
+import { processData, getCookie, setCookie} from "utils";
 import {loginInitI18n} from 'utils/i18n.iuap';
 
 export default {
@@ -91,6 +91,7 @@ export default {
          */
         async setLocaleParam(newLocaleValue) {
             if (newLocaleValue && newLocaleValue.length > 0) {
+                setCookie('u_locale',newLocaleValue)
                 let res = processData(await api.setLocaleParam(newLocaleValue));
                 if(res){
                     window.location.reload(true);
