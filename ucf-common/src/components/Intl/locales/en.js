@@ -356,7 +356,7 @@ const en_US = {
     'tabs.sidebar.nodate':"Can't find",
     'tabs.sidebar.rollUp':"Move menus by scrolling the mouse",
     'tabs.sidebar.maxnums':"Sorry, up to 10 tabs!",
-    'tabs.main.title':'iuap Application Development Platform',
+    'tabs.main.title':'iuap Platform',
     'header.search.placeholder':'Menu query',
     'header.search.noData':'No Data',
     'tabs.show.more':'more'

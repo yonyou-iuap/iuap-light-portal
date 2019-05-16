@@ -56,6 +56,7 @@ class UserMenus extends Component {
 
         //调用 loadUserMenuList 请求数据
         let res = processData(await api.loadUserMenuList());
+        window.sessionStorage.setItem('userMenuData',JSON.stringify(res.data));
         this.setState({
             userMenus: res.data
         });

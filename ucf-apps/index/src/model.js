@@ -388,6 +388,7 @@ export default {
             }else{
                 data = res.data;
             }
+            window.sessionStorage.setItem('menuDate',JSON.stringify(data));
             actions.app.updateState({
                 menu: data,
                 num:data?data.length:0
@@ -407,7 +408,6 @@ export default {
 
             // 调用 loadUserMenuList 请求数据
             let res = processData(await api.loadUserMenuList());
-
             actions.app.updateState({
                 userMenus: res.data,
             });
