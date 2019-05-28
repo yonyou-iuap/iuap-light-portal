@@ -6,7 +6,9 @@ import MainLayout from "layout";
 import Routes from './routes'
 import 'static/trd/tinper-bee/assets/tinper-bee.css'
 import { setCookie,getCookie } from 'utils/index';
-setCookie('portalid',GROBAL_PORTAL_ID)
+setCookie('portalid',GROBAL_PORTAL_ID, {
+    path: '/'
+})
 import Intl from 'components/Intl/index.js'
 import {getContextId} from 'utils';
 const contextId = getContextId();
@@ -52,7 +54,9 @@ if(!nowlocale){
                 }
             }
         }
-        setCookie('u_locale',locale)
+        setCookie('u_locale',locale,{
+            path: '/'
+        })
         setTimeout(()=>{
             runFun()
         },200)

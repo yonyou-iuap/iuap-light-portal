@@ -480,7 +480,9 @@ export default {
          */
         async setLocaleParam(newLocaleValue) {
             if (newLocaleValue && newLocaleValue.length > 0) {
-                setCookie('u_locale',newLocaleValue)
+                setCookie('u_locale',newLocaleValue,{
+                  path: '/'
+                })
                 let res = processData(await api.setLocaleParam(newLocaleValue));
                 // if(res){
                     // let id = getCookie('_A_P_userId');

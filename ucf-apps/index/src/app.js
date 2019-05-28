@@ -5,7 +5,9 @@ import MainLayout from "layout";
 import Routes from './routes'
 import 'static/trd/tinper-bee/assets/tinper-bee.css'
 import { setCookie } from 'utils/index';
-setCookie('portalid',GROBAL_PORTAL_ID)
+setCookie('portalid',GROBAL_PORTAL_ID, {
+    path: '/'
+})
 
 import Intl from 'components/Intl/index.js'
 
