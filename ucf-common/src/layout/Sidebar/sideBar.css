@@ -101,6 +101,7 @@
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list li a{
   font-size:12px;
   color:rgba(85,85,85,1);
+  max-width: calc(100% - 24px);
 }
 .menu-popup .third-menu-content a {
   cursor: pointer;
