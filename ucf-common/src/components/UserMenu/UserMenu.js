@@ -92,6 +92,7 @@ class UserMenus extends Component {
                   <div className="header-right-applet-list" style={{display: portalId === 'wbalone'? '':'none' }}>
                     {
                       this.state.userMenus.map(function(item) {
+                          console.log(item)
                         return (
                           <div className="header-right-applet" onClick={(e) => self.handleClick(e,'',item)}>
                           <a ref={item.code} value={item.code} onClick={ item.urlType==="url_blank"?"":(e) => self.props.handleDefault(e)}
@@ -100,6 +101,7 @@ class UserMenus extends Component {
                              name={item['name'+locale_serial]} title={item['name'+locale_serial]} href={item.urlType==="url_blank"?item.url: self.formmaterUrl(item)}>
                              <div className="header-right-applet-icon"><i className={item.icon}></i></div>
                              <div className="header-right-applet-text">{item['name'+locale_serial]}</div>
+                            
                           </a>
                           </div>
                         )
