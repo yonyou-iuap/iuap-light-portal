@@ -6,9 +6,9 @@ import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
 import classNames from 'classnames';
 import { Warning } from '../../utils/index';
-import Drawer from 'ac-drawer';
-import "ac-drawer/dist/ac-drawer.css";
+
 import {getCookie} from "utils";
+import {ConnectedTopSideBar,ConnectedLeftSideBar,ConnectedTopMoreSideBar} from 'ucf-apps/index/src/container';
 
 import * as api from "ucf-apps/index/src/service";
 window.router = new Router();
@@ -23,23 +23,13 @@ class App extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = {
-            isOpenTab: true,
-            clientHeight:document.body.clientHeight,
-            arrowUp:true,
-            arrowDown:false,
-            menuSearch:[],
-            sss: [],
-            dddd: 1,
-            sideSlected: '',
-            leftSubShow: false
 
-
-        };
         this.delTrigger();
-        this.showMenu = this.showMenu.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDefault = this.handleDefault.bind(this);
         this.sideBarLoadList = this.sideBarLoadList.bind(this);
+        this.openTab = this.openTab.bind(this);
+        this.changeAhref = this.changeAhref.bind(this);
         window.handleClick = this.handleClick;
         window.sideBarLoadList = this.sideBarLoadList;
     }
@@ -56,24 +46,11 @@ class App extends Component {
         }
     }
 
-    onToggle(value) {
-        //this.setState({expanded: value});
-        let {expanded,openKeys,curentOpenKeys} = this.props;
 
-        var v = expanded;
-
-        if (v) {
-            var keys = openKeys;
-            actions.app.updateState({ expanded: !v, openKeys: [], curentOpenKeys: keys });
-        } else {
-            var _keys = curentOpenKeys;
-            actions.app.updateState({ expanded: !v, openKeys: _keys, curentOpenKeys: _keys });
-        }
-
-    }
     handleDefault(e,isDefault) {
+        let {isOpenTab} = this.props;
         isDefault = (isDefault=="_blank")?false:true;
-        if(this.state.isOpenTab&&isDefault){
+        if(isOpenTab&&isDefault){
             //dom.href = 'javascript:;'
             e.preventDefault();
         }
@@ -179,7 +156,8 @@ class App extends Component {
         var value = tar.getAttribute('value');
         var dom = tar;
         // var title = dom.getAttribute('name');
-        var router =  dom.getAttribute('href');
+        // var router =  dom.getAttribute('href');
+
         var options = {
             title:item.name,
             title2:item.name2,
@@ -187,10 +165,14 @@ class App extends Component {
             title4:item.name4,
             title5:item.name5,
             title6:item.name6,
-            router:router,
+            router:window.formmaterUrl(item),
             id:value
         };
-        window.createTab(options);
+        if(item.urltype==='url'&& item.openview==='newpage') {
+
+        }else {
+          window.createTab(options);
+        }
         let {sideBarShow} = this.props;
         actions.app.updateState({
           sideBarShow: !sideBarShow
@@ -199,42 +181,7 @@ class App extends Component {
     }
 
 
-    createTab (options,value) {
-        var self = this;
-        var {menus} = this.props;
 
-        if(!window.sessionStorage){
-            alert('This browser does NOT support sessionStorage');
-            return false;
-        }
-        var menu = menus;
-
-        //当存在相同id菜单的时候，不创建
-        if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
-            return false;
-        }
-
-        var menuObj = JSON.parse(JSON.stringify(menu));
-
-        // if(menuObj.length==11) {
-        //     return false;
-        // }
-
-        menuObj[menuObj.length] = options;
-
-        sessionStorage['tabs'] = JSON.stringify(menuObj);
-
-        sessionStorage['current'] = JSON.stringify({
-            current:options.id
-        });
-
-        actions.app.updateState({
-            menus:menuObj,
-            tabNum:menuObj.length,
-            current:options.id
-        });
-
-    }
     getTabs () {
         if(!window.sessionStorage){
             alert('This browser does NOT support sessionStorage');
@@ -277,167 +224,6 @@ class App extends Component {
     }
 
 
-
-    showMenu(e) {
-
-        var state = this.state.userMenu;
-        this.setState({"userMenu":!state})
-    }
-
-    //IE下 array.find（）方法不可用
-    myfilter(arr1,arr2) {
-        if(arr2.length == 0 || !arr2) {
-            return arr1[0];
-        }
-
-        for(var i=0;i<arr1.length;i++)
-        {
-            if(arr2.indexOf(arr1[i].toString())==-1)
-            {
-                return arr1[i];
-            }
-        }
-        return false;
-    }
-    getAncestorKeys(key) {
-        const map = {
-            sub3: ['sub2']
-        };
-        return map[key] || [];
-    }
-    sessionStorage(openKeys){
-        if(sessionStorage&&openKeys){
-            sessionStorage['openKeys'] = openKeys;
-        }
-        else {
-            return sessionStorage['openKeys'];
-        }
-    }
-    formmaterUrl(item) {
-        var uri = " ";
-        if (item.urltype === 'url') {
-            var target=item.openview=="newpage"?"_blank":"";
-            if(target){
-                // uri = '#/ifrNoHead/' + encodeURIComponent(encodeURIComponent(item.location));
-                uri = item.location;
-            }else{
-                uri = '#/ifr/' + encodeURIComponent(encodeURIComponent(item.location));
-            }
-            if(uri.indexOf('?')!=-1){
-                uri+="&modulefrom=sidebar";
-            }else{
-                uri+="?modulefrom=sidebar"
-            }
-            return  uri;
-        } else if (item.urltype === 'plugin') {
-            uri = item.id ? ('#/' + item.id) : "#/index_plugin";
-
-            uri = `${GROBAL_HTTP_CTX}/`+encodeURIComponent(encodeURIComponent('index-view.html'+uri));
-            if(uri.indexOf('?')!=-1){
-                uri+="&modulefrom=sidebar";
-            }else{
-                uri+="?modulefrom=sidebar"
-            }
-            return  uri;
-        } else if (item.urltype === 'view') {
-            uri = item.location;
-            uri= uri.replace("#", "/");
-
-            if(uri[0]=='/'){
-                uri = "/sidebar"+uri;
-            }else{
-                uri = "/sidebar/"+uri;
-            }
-            if(uri.indexOf('?')!=-1){
-                uri+="&modulefrom=sidebar";
-            }else{
-                uri+="?modulefrom=sidebar"
-            }
-            // window.addRouter(uri);
-            // return  "#"+uri;
-
-            return `${GROBAL_HTTP_CTX}/`+'index-view.html#'+uri;
-        }else if(item.urltype == undefined){
-            item.location = '404';
-            return  '#/ifr/' + encodeURIComponent(encodeURIComponent(item.location));
-        }
-        else {
-            return item.location;
-        }
-    }
-    setMenu(response){
-        var self = this;
-
-        var url = decodeURIComponent(decodeURIComponent(location.hash));
-
-        var obj = sessionStorage['current']!=undefined?JSON.parse(sessionStorage['current']):'';
-
-        if(obj){
-            this.state.current = obj.current;
-
-            return false;
-        }
-
-        var data = response.data.data||[];
-
-        data.map(function (item,index) {
-
-            if(Array.isArray(item.children)&&item.children.length>0){
-
-                item.children.map(function(it,index){
-                    let selected = url.indexOf(it.location||'null')>=0?it.id:"";
-                    if(selected){
-                        self.setState({
-                            current:selected
-                        })
-                    }
-                    if(it==0){
-                        self.setState({
-                            firstUrl:item.location
-                        })
-                    }
-                    // it.children.map(function(itit,index2){
-                    //     let selected = url.indexOf(itit.location||'null')>=0?itit.id:"";
-                    //     if(selected){
-                    //         self.setState({
-                    //             current:selected
-                    //         })
-                    //     }
-                    //     if(itit==0){
-                    //         self.setState({
-                    //             firstUrl:it.location
-                    //         })
-                    //     }
-                    // });
-                });
-            }
-            else {
-
-                let selected = url.indexOf(item.location||'null')>=0?item.id:"";
-                if(selected){
-                    self.setState({
-                        current:selected
-                    });
-
-                    if(index==0){
-                        self.setState({
-                            firstUrl:item.location
-                        })
-                    }
-                }
-                else {
-                    if(index==0){
-                        self.setState({
-                            firstUrl:item.location,
-                            current:item.id
-                        })
-                    }
-
-                }
-            }
-        });
-    }
-
     resizeIfr (){
         var self = this;
 
@@ -471,13 +257,11 @@ class App extends Component {
     componentDidUpdate (){
         var self = this;
         self.resizeIfr();
-        self.menubar();
     }
 
     componentDidMount(){
         var self = this;
         self.resizeIfr();
-        self.menubar();
         self.confirm();
     }
 
@@ -545,10 +329,6 @@ class App extends Component {
         var router = window.router;
         router.init();
         //获取第一个节点数据
-        let locale_serial = getCookie("locale_serial");
-        if(locale_serial == 1) {
-            locale_serial = "";
-        }
 
         var item = menu[0]?menu[0]:{
             "location" : "pages/default/index.js",
@@ -569,8 +349,8 @@ class App extends Component {
             "licenseControlFlag" : 0,
         };
         if (window.location.hash == ''|| window.location.hash == '#/') {
-
-            if(this.state.isOpenTab){
+            let {isOpenTab} = this.props;
+            if(isOpenTab){
                 if(menus.length==0){
                     //true设定加载第一个tab
                     var options = {
@@ -580,7 +360,7 @@ class App extends Component {
                         title4: item.name4,
                         title5: item.name5,
                         title6: item.name6,
-                        router:self.formmaterUrl(item),
+                        router:window.formmaterUrl(item),
                         id:item.id,
                     };
                     window.createTab(options);
@@ -593,105 +373,6 @@ class App extends Component {
         else {
             router.dispatch('on', window.location.hash.replace('#',''));
         }
-    }
-    onTitleMouseEnter(e,domEvent){
-
-        //var dom = ($(e.domEvent.target).closest('li'));
-
-        var myOffest=function (obj){
-            var top=0,left=0;
-            if(obj){
-                while(obj.offsetParent){
-                    top += obj.offsetTop;
-                    left += obj.offsetLeft;
-                    obj = obj.offsetParent;
-                }
-            }
-
-            return{
-                top : top,
-                left : left
-            }
-        }
-        var dom = e.domEvent.target.parentElement;
-
-        var h = document.body.clientHeight;
-
-        this.setState({
-            clientHeight:h
-        });
-
-        setTimeout(function () {
-
-            var menu = dom.children[0];
-            var menu2 = dom.children[1].children[2];
-            var arrow = dom.children[1].children[0];
-
-
-            if(parseInt(myOffest(dom).top)+parseInt(menu.clientHeight)>h){
-
-                if(parseInt(menu.clientHeight)>parseInt(myOffest(dom).top)){
-
-                    menu.style.bottom = -(h-parseInt(myOffest(dom).top)-50-20)+'px';
-                    menu.style.top = 'inherit';
-                    menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
-                    arrow.style.bottom = (h-parseInt(myOffest(dom).top)-50)+15-20 + 'px';
-                    arrow.style.top = 'inherit';
-                }
-                else {
-                    menu.style.bottom = 0;
-                    menu.style.top = 'inherit';
-                    menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
-                    arrow.style.bottom = '14px';
-                    arrow.style.top = 'inherit';
-                }
-            }
-            else {
-                menu.style.bottom = 0;
-                menu.style.top = 'inherit';
-                menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
-                arrow.style.bottom = 'inherit';
-                arrow.style.top = '14px';
-            }
-
-        },0)
-    }
-    menubar() {
-    }
-    scrollMenu(value,e){
-
-        let {curNum,num} = this.props;
-
-        var h  = document.body.clientHeight-60;
-        var showNum = parseInt(h/50);
-
-        curNum =  curNum+value;
-
-        if(curNum<0){
-            curNum = 0;
-            this.setState({
-               arrowUp:true
-            })
-            return false;
-        }
-        //fix: add 1 fake element
-        else if(curNum>num-showNum) {
-            curNum=num-showNum;
-            this.setState({
-                arrowDown:true
-            })
-            return false;
-        }
-        else {
-            this.setState({
-                arrowDown:false,
-                arrowUp:false
-            })
-        }
-
-        actions.app.updateState({
-            curNum:curNum
-        })
     }
 
     confirm(){
@@ -723,27 +404,6 @@ class App extends Component {
 
         }
     }
-    clickFun(e, item,list, index){
-        this.setState({
-            sss: list,
-            dddd: index,
-            sideSlected: item.menuId,
-
-        })
-    }
-    leftMouseEnter(e,item,list, index) {
-    //   debugger;
-        this.setState({
-            sss: list,
-            dddd: index,
-            leftSubShow: true
-        })
-    }
-    leftMouseLeave(e,item,list, index) {
-        this.setState({
-            leftSubShow: false
-        })
-    }
 
     changeAhref(target){
         var uri=target.location;
@@ -756,335 +416,47 @@ class App extends Component {
         }
         return uri;
     }
-    searchChange=(e,index)=>{
-        let menuSearch = this.state.menuSearch;
-        menuSearch[index] =e.target.value;
-        this.setState({
-            menuSearch:menuSearch
-        })
-    }
-    collectefunc =(e,itit,index1,index2,index3)=>{
-        e.stopPropagation();
+    collectefunc =(e,itit)=>{
+        // e.stopPropagation();
         if(!itit.collected){ //已收藏 取消
             api.wbMenuCollection({"menuId":itit.menuId})
 
         }else{  //未收藏 收藏
             api.wbMenuUncollection ({"id":itit.menuId})
-
         }
         let  menu = this.props.menu;
-        if(!index3 && index3!=0){
-            menu[index1].children[index2].collected =!itit.collected;
-
-
-        }else{
-            menu[index1].children[index2].children[index3].collected =!itit.collected;
-        }
+        itit.collected =!itit.collected;
+        // if(!index3 && index3!=0){
+        //     menu[index1].children[index2].collected =!itit.collected;
+        //
+        //
+        // }else{
+        //     menu[index1].children[index2].children[index3].collected =!itit.collected;
+        // }
         this.setState({
             menu:menu
         })
 
 
     }
-    barLeftClick = () => {
-      let {leftExpanded} = this.props;
-      actions.app.updateState({
-        leftExpanded: !leftExpanded
-      })
-    }
     render() {
         var self = this;
-        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded} = this.props;
-        var isSeleted = submenuSelected;
-        var menuSearch  = this.state.menuSearch;
-        const sss = self.state.sss;
-        const dddd = self.state.dddd;
-        const sideSlected = self.state.sideSlected;
-        const leftSubShow = self.state.leftSubShow;
-        let locale_serial = getCookie("locale_serial");
-        if(locale_serial == 1) {
-            locale_serial = "";
+        let isLightPortal = GROBAL_PORTAL_ID;
+        const {themeObj} = this.props;
+        let sideBarOper = {
+          changeAhref: self.changeAhref,
+          openTab: self.openTab,
+          handleDefault: self.handleDefault,
+          handleClick: self.handleClick,
+          collectefunc: self.collectefunc
         }
         return (
           <div>
           {
-            themeObj.sideShowPosition !=='left'?
-            <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
-                <div className="left-side-bar">
-                <div className="left-side-bar-menu">
-                    {
-                        menu.map(function (item,index1) {
-                            let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                            var noSecond = 'only-second-menu';
-                            if(Array.isArray(item.children)&&item.children.length>0){
-                                let list = [];
-                                var menulist = [[],[]];
-                                var pages = 0;
-
-                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                                item.children.map(function(it,index2){
-
-                                    let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                    if(Array.isArray(it.children)&&it.children.length>0){
-                                        let list2 = [];
-                                        let searchlist =[];
-                                        let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                        noSecond = 'no-second-menu';
-                                        it.children.map(function(itit,index3){
-                                            let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-
-                                            let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                              data-areaId={itit.areaId}
-                                                              title={itit['name'+locale_serial]}
-                                                              data-ahref={self.changeAhref(itit)}
-                                                              data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                              ref={itit.id} name={itit['name'+locale_serial]}
-                                                              href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                               onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                               data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                            list2.push(html)
-
-                                        });
-                                        if( list2.length>0) {
-                                            var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                            var html = <div className={'menu-popup'}>
-                                                {title}
-                                                <div className="third-menu-content">
-                                                    <ul className="third-menu-list">
-                                                        {list2}
-                                                    </ul>
-                                                </div>
-                                            </div>;
-                                            menulist[0].push (html)
-
-                                        }
-                                    } else {
-                                        var  cellH = 46;
-                                        let  html = <div className={'menu-popup menu-popup-one'}>
-                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                                                                                                                                                                                                       onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                                                                                                                                                                                                                                                                                       data-menuId={it.menuId} title={'收藏'}></i></a>
-                                        </div>
-                                        menulist[0].push(html)
-
-
-
-                                    }
-
-                                });
-
-                                return (
-                                    /* 此处要考虑原有的submenu的逻辑 */
-                                    <div onClick={(e)=>self.clickFun(e,item,menulist,index1)} className="side-bar-first">
-                                        {title}
-                                    </div>
-                                )
-                            }
-                            else {
-                                let blank =item.openview=="newpage"&&item.urltype=='url' ?"_blank":"";
-
-                                if(item.id == 'index'){
-                                    return false;
-                                }
-
-                                let title = (
-                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
-                                );
-                                return (
-                                    <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
-                                        {title}
-                                    </div>
-                                )
-                            }
-                        })
-                    }
-                </div>
-                <div className="sidebar-content-sub">
-                        {
-                            menu.map(function (item,index1) {
-                                if(index1 === dddd){
-                                    let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                                var noSecond = 'only-second-menu';
-
-                                if(Array.isArray(item.children)&&item.children.length>0){
-                                    let list = [];
-                                    var menulist = [[],[]];
-
-                                    var pages = 0;
-
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                                    item.children.map(function(it,index2){
-
-                                        let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                        if(Array.isArray(it.children)&&it.children.length>0){
-                                            let list2 = [];
-                                            let searchlist =[];
-                                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                            noSecond = 'no-second-menu';
-                                            it.children.map(function(itit,index3){
-                                                let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-
-                                                let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                                  data-areaId={itit.areaId}
-                                                                  title={itit['name'+locale_serial]}
-                                                                  data-ahref={self.changeAhref(itit)}
-                                                                  data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                                  ref={itit.id} name={itit['name'+locale_serial]}
-                                                                  href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                   onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                                   data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                                list2.push(html)
-
-                                            });
-                                            if( list2.length>0) {
-                                                var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                                var html = <div className={'menu-popup'}>
-                                                    {title}
-                                                    <div className="third-menu-content">
-                                                        <ul className="third-menu-list">
-                                                            {list2}
-                                                        </ul>
-                                                    </div>
-                                                </div>;
-                                                menulist[0].push (html)
-                                            }
-                                            // }
-                                        } else {
-                                            let  html = <div className={'menu-popup menu-popup-one'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId}
-                                                   data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
-                                                   onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
-                                                   href={self.formmaterUrl(it)}>{it['name'+locale_serial]}
-                                                   <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                      onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }data-menuId={it.menuId} title={'收藏'}>
-                                                   </i></a>
-                                            </div>
-                                            menulist[0].push(html)
-                                        }
-
-                                    });
-                                   return  menulist.map(function(ite,i){
-                                        ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
-                                        return (
-                                            ite
-                                        )
-                                    })
-                                }
-                                }
-
-                            })
-                        }
-                </div>
-                </div>
-                </Drawer>
-            :<div className="left-side-bar sidebar-left">
-            <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()} style={{backgroundColor:themeObj.leftSideBgColor,backgroundImage: `url(${themeObj.leftSideBgImg})`}}>
-            { themeObj.leftSideTheme === 'light'?
-              <img src={require(`static/images/hanbao-dark.svg`)}/>
-              : <img src={require(`static/images/hanbao-light.svg`)}/>
-            }
-            </div>
-            <div className={!leftExpanded?"left-side-bar-menu":"left-side-bar-menu left-side-bar-menu-expand"}>
-                {
-                    menu.map(function (item,index1) {
-                        let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                        var noSecond = 'only-second-menu';
-                        if(Array.isArray(item.children)&&item.children.length>0){
-                            let list = [];
-                            var menulist = [[],[]];
-
-                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                            item.children.map(function(it,index2){
-
-                                let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                if(Array.isArray(it.children)&&it.children.length>0){
-                                    let list2 = [];
-                                    let searchlist =[];
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                    noSecond = 'no-second-menu';
-                                    it.children.map(function(itit,index3){
-                                        let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-                                        let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                          data-areaId={itit.areaId}
-                                                          title={itit['name'+locale_serial]}
-                                                          data-ahref={self.changeAhref(itit)}
-                                                          data-licenseControlFlag={itit.licenseControlFlag}
-                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                          ref={itit.id} name={itit['name'+locale_serial]}
-                                                          href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                           onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                           data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                        list2.push(html)
-                                    });
-                                    if( list2.length>0) {
-                                        var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                        var html = <div className={'menu-popup'}>
-                                            {title}
-                                            <div className="third-menu-content">
-                                                <ul className="third-menu-list">
-                                                    {list2}
-                                                </ul>
-                                            </div>
-                                        </div>;
-
-                                        menulist[0].push (html)
-
-                                    }
-
-                                } else {
-                                    let  html = <div className={'menu-popup menu-popup-one'}>
-                                        <a target={blank} value={it.id} data-areaId ={it.areaId}
-                                           data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
-                                           onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
-                                           href={self.formmaterUrl(it)}>{it.name}
-                                           <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                              onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                              data-menuId={it.menuId} title={'收藏'}></i></a>
-                                    </div>
-                                    menulist[0].push(html)
-                                }
-
-                            });
-                            return (
-                                /* 此处要考虑原有的submenu的逻辑 */
-                                <div onMouseEnter={(e)=>self.leftMouseEnter(e,item,menulist,index1)} onMouseLeave={(e)=>{self.leftMouseLeave(e,item,menulist,index1)}} className="side-bar-first">
-                                    {title}
-                                    <div className={leftSubShow && index1===dddd?"sidebar-content-sub sidebar-content-sub-show ":'sidebar-content-sub sidebar-content-sub-hide'}>
-                                            {menulist.map(function(ite,i){
-                                                   ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
-                                                   return (
-                                                       ite
-                                                   )
-                                               })}
-                                    </div>
-                                </div>
-                            )
-                        }
-                        else {
-                            let blank =item.openview=="newpage"&&item.urltype=='url' ?"_blank":"";
-
-                            if(item.id == 'index'){
-                                return false;
-                            }
-
-                            let title = (
-                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
-                            );
-                            return (
-                                <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
-                                    {title}
-                                </div>
-                            )
-                        }
-                    })
-                }
-
-            </div>
-
-
-            </div>
+            isLightPortal !== 'wbalone'?themeObj.sideShowPosition !=='left'?
+            <ConnectedTopSideBar sideBarOper={sideBarOper}/> // 3级菜单顶部浮动导航(轻量门户)
+            :<ConnectedLeftSideBar sideBarOper={sideBarOper}/> // 3级菜单左侧固定导航(轻量门户)
+            :<ConnectedTopMoreSideBar sideBarOper={sideBarOper}/> // 4级菜单顶部浮动导航(正式门户)
           }
           </div>
 

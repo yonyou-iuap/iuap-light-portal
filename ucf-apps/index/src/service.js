@@ -5,15 +5,15 @@ import request from "utils/request";
 const URL = {
     "GET_LOCALE": `${GROBAL_HTTP_CTX}/i18n/classification/serial`,
     "GET_LANGLIST": `${GROBAL_HTTP_CTX}/i18n/classification/list`,
-    "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/newSidebarList?r=`+Math.random(),
-    "GET_MENU_PORTAL":  `${GROBAL_HTTP_CTX}/appmenumgr/listSidebarByApportalCode?r=`+Math.random(),
-    "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list?r=`+Math.random(),
-    "GET_UNREADMSG":`/iuap-saas-message-center/message/getUnReadMsg?r=`+Math.random(),
-    "GET_WEBPUSHINFO":`${GROBAL_HTTP_CTX}/webpush/getInfo?r=`+Math.random(),
-    "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create?r=`+Math.random(),
-    "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete?r=`+Math.random(),
-    "GET_ALLTENANT":`${GROBAL_HTTP_CTX}/platform/cas/getAllTenant?r=`+Math.random(),
-    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random(),
+    "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/newSidebarList`,
+    "GET_MENU_PORTAL":  `${GROBAL_HTTP_CTX}/appmenumgr/listSidebarByApportalCode`,
+    "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list`,
+    "GET_UNREADMSG":`/iuap-saas-message-center/message/getUnReadMsg`,
+    "GET_WEBPUSHINFO":`${GROBAL_HTTP_CTX}/webpush/getInfo`,
+    "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create`,
+    "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete`,
+    "GET_ALLTENANT":`${GROBAL_HTTP_CTX}/platform/cas/getAllTenant`,
+    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant`,
     "GET_GETBYID":`${GROBAL_HTTP_CTX}/userMGT/getById`,
 };
 
@@ -26,9 +26,9 @@ export const getList = (params) => {
     portalId = portalId.substring(1)
     let url;
     if(portalId === 'wbalone'){
-        url =URL.GET_MENU+'&1=1';
+        url =URL.GET_MENU + '?r=' + Math.random() + '&1=1';
     }else{
-        url =URL.GET_MENU_PORTAL+'&apportalCode=' + portalId;
+        url =URL.GET_MENU_PORTAL + '?r=' + Math.random() + '&apportalCode=' + portalId;
     }
     return request(url, {
         method: "get"
@@ -40,7 +40,7 @@ export const getList = (params) => {
  * @param {*} params
  */
 export const loadUserMenuList = (params) => {
-    return request(URL.GET_USER_MENU, {
+    return request(URL.GET_USER_MENU + '?r=' + Math.random(), {
         method: "get"
     });
 }
@@ -50,7 +50,7 @@ export const loadUserMenuList = (params) => {
  * @param {*} params
  */
 export const getAllTenant = (params) => {
-    return request(URL.GET_ALLTENANT, {
+    return request(URL.GET_ALLTENANT + '?r=' + Math.random(), {
         method: "get"
     });
 }
@@ -59,7 +59,7 @@ export const getAllTenant = (params) => {
  * @param {*} params
  */
 export const setTenant = (params) => {
-    return request(URL.GET_SWITCHTENANT, {
+    return request(URL.GET_SWITCHTENANT + '?r=' + Math.random(), {
         method: "get",
         param:params
     });
@@ -69,7 +69,7 @@ export const setTenant = (params) => {
  * @param {*} params
  */
 export const loadUnReadMsg = (params) => {
-    return request(URL.GET_UNREADMSG, {
+    return request(URL.GET_UNREADMSG + '?r=' + Math.random(), {
         method: "get"
     });
 }
@@ -78,7 +78,7 @@ export const loadUnReadMsg = (params) => {
  * @param {*} params
  */
 export const getWebPushInfo = (params) => {
-    return request(URL.GET_WEBPUSHINFO, {
+    return request(URL.GET_WEBPUSHINFO + '?r=' + Math.random(), {
         method: "get"
     });
 }
@@ -87,7 +87,7 @@ export const getWebPushInfo = (params) => {
  * @param {*} params
  */
 export const wbMenuCollection = (params) => {
-    return request(URL.wbMenuCollection, {
+    return request(URL.wbMenuCollection + '?r=' + Math.random(), {
         method: "post",
         data:params
     });
@@ -97,7 +97,7 @@ export const wbMenuCollection = (params) => {
  * @param {*} params
  */
 export const wbMenuUncollection = (params) => {
-    return request(URL.wbMenuUncollection, {
+    return request(URL.wbMenuUncollection + '?r=' + Math.random(), {
         method: "get",
         param:params
     });

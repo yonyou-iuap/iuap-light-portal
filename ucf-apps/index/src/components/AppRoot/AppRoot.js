@@ -64,7 +64,7 @@ class App extends Component {
                 }
             }
             //匹配当前组件内的所有元素
-            if(matchesSelector(e.target,'.header-svg')|| matchesSelector(e.target,'.left-side-bar *') ){               
+            if(matchesSelector(e.target,'.header-svg')|| matchesSelector(e.target,'.left-side-bar *') || matchesSelector(e.target,'.drawer-body *') ||matchesSelector(e.target,'.third-menu *') ){               
                 return;
             }
         actions.app.updateState({

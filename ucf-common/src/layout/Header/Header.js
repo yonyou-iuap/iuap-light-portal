@@ -180,7 +180,7 @@ class App extends Component {
     createTab (options,value) {
         var self = this;
         var {menus,current,themeObj} = this.props;
-
+        
         if(!window.sessionStorage){
             alert('This browser does NOT support sessionStorage');
             return false;
@@ -220,7 +220,12 @@ class App extends Component {
                         menu.splice(i,1);
                       }
                     }
-                    menu.splice(1,0,obj);
+                    if(menu[1].id === 'sysmgr'){
+                      menu.splice(2,0,obj);
+                    }else{
+                      menu.splice(1,0,obj);
+                    }
+                    
               }
             } else {
               for (var i = 0; i < menu.length; i++) {
@@ -241,10 +246,18 @@ class App extends Component {
         }
         //点击的页签不存在
         if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"') === -1) {
-          if(menu.length >= themeObj.tabNum) {
+          if(options.id === 'sysmgr'){
             menu.splice(1,0,options);
-          } else {
-            menu[menu.length] = options;
+          }else{
+            if(menu.length >= themeObj.tabNum) {
+              if(menu[1].id === 'sysmgr'){
+                menu.splice(2,0,options);
+              }else{
+                menu.splice(1,0,options);
+              }
+            } else {
+              menu[menu.length] = options;
+            }
           }
         }
 

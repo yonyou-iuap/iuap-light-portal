@@ -52,7 +52,12 @@ class Tab extends Component {
                     menuProp.splice(i,1);
                   }
                 }
-                menuProp.splice(1,0,obj);
+                if(menuProp[1].id === 'sysmgr'){
+                  menuProp.splice(2,0,obj);
+                }else{
+                  menuProp.splice(1,0,obj);
+                }
+                
           }
         }
         for (var i = 0; i < menuProp.length; i++) {
@@ -180,8 +185,11 @@ class Tab extends Component {
         }
     }
     // 页签更多的点击事件
-    tabsMoreClick() {
-
+    tabsMoreClick(e) {
+      let tar = e.target || e.domEvent.target;
+      if (tar.tagName && tar.tagName === 'I' && tar.classList.contains('x-close')){
+        return;
+      }
       const {tabsMore} = this.props;
       actions.app.updateState({
           tabsMore: !tabsMore
@@ -240,10 +248,13 @@ class Tab extends Component {
                           menus.length>themeObj.tabNum? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
                           {
                             moremenu.map(function(item1,index1){
+                              var delIcon = (<i onClick={self.del.bind(this,item1.id)} className="qy-iconfont icon-tubiao-guanbi x-close" key={item1.router}></i>)
                               return (
                                 <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
                                     {item1['title'+locale_serial]}
-                                </a></li>
+                                </a>
+                                {delIcon}
+                                </li>
                               )
                             })
                           }

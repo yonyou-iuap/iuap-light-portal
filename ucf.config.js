@@ -19,17 +19,17 @@ module.exports = (env, argv) => {
         proxy: [{
             "enable": true,
             "headers": {
-                "Referer": "http://172.20.52.123"
+                "Referer": "http://172.20.52.32"
             },
             "router": ["/wbalone", "//wbalone"],
-            "url": "http://172.20.52.123"
+            "url": "http://172.20.52.32"
         }, {
             "enable": true,
             "headers": {
-                "Referer": "http://172.20.52.123"
+                "Referer": "http://172.20.52.32"
             },
             "router": ["/iuapmdm_fr","/iuapmdm","/group1","/iuap-pap-demo-be", "/iuap-pap-demo-fe", "/react_example_fe", "/iuap-saas-billcode-service", "/newref", "/pap_basedoc", "/react_example", "/example", "/iuap-saas-filesystem-service", "/uitemplate_web", "/eiap-plus", "/iuap-saas-message-center", "/reactfe", "/iuap-saas-busilog-service", "/iuap-eiap-bpm-service", "/iuap-saas-dispatch-service", "/iuaprmodel", "/uui"],
-            "url": "http://172.20.52.123"
+            "url": "http://172.20.52.32"
         }],
         // 构建资源的时候产出sourceMap，调试服务不会生效
         open_source_map: false,
