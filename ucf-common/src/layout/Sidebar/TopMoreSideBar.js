@@ -203,7 +203,7 @@ class TopMoreSideBar extends Component {
 			}else {
 				result.push(
 					<div className='third-menu-list'>
-						<a href={self.formmaterUrl(item)} value={item.id} data-ahref={self.changeAhref(item)} key={item.id} className="child-title"
+						<a href={self.formmaterUrl(item)} target={blank} value={item.id} data-ahref={self.changeAhref(item)} key={item.id} className="child-title"
 						data-areaId={item.areaId} data-licenseControlFlag={item.licenseControlFlag}
 						onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',item)}}
 						>

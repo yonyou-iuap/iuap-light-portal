@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { Warning } from '../../utils/index';
 
 import {getCookie} from "utils";
-import {ConnectedTopSideBar,ConnectedLeftSideBar,ConnectedTopMoreSideBar} from 'ucf-apps/index/src/container';
+import {ConnectedTopSideBar,ConnectedLeftSideBar,ConnectedTopMoreSideBar,ConnectedMenus} from 'ucf-apps/index/src/container';
 
 import * as api from "ucf-apps/index/src/service";
 window.router = new Router();
@@ -168,9 +168,8 @@ class App extends Component {
             router:window.formmaterUrl(item),
             id:value
         };
-        if(item.urltype==='url'&& item.openview==='newpage') {
-
-        }else {
+        if(item.urltype=='url'&& item.openview =='newpage') {
+        } else {
           window.createTab(options);
         }
         let {sideBarShow} = this.props;
@@ -440,7 +439,7 @@ class App extends Component {
 
     }
     render() {
-        var self = this;
+        let self = this;
         let isLightPortal = GROBAL_PORTAL_ID;
         const {themeObj} = this.props;
         let sideBarOper = {
@@ -453,10 +452,11 @@ class App extends Component {
         return (
           <div>
           {
-            isLightPortal !== 'wbalone'?themeObj.sideShowPosition !=='left'?
-            <ConnectedTopSideBar sideBarOper={sideBarOper}/> // 3级菜单顶部浮动导航(轻量门户)
-            :<ConnectedLeftSideBar sideBarOper={sideBarOper}/> // 3级菜单左侧固定导航(轻量门户)
-            :<ConnectedTopMoreSideBar sideBarOper={sideBarOper}/> // 4级菜单顶部浮动导航(正式门户)
+            themeObj.sideShowPosition !=='left'?
+            // <ConnectedTopSideBar sideBarOper={sideBarOper}/> // 3级菜单顶部浮动导航
+            <ConnectedTopMoreSideBar sideBarOper={sideBarOper}/> // 4级菜单顶部浮动导航
+            :<ConnectedLeftSideBar sideBarOper={sideBarOper}/> // 3级菜单左侧固定导航
+            // :<ConnectedMenus sideBarOper={sideBarOper}/> // 3级菜单左侧抽屉固定导航
           }
           </div>
 

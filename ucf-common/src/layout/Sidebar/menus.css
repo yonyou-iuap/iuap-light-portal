@@ -1,0 +1,230 @@
+.tree-sidebar .tree-left-icon {
+  font-size: 24px;
+}
+.tree-sidebar-info.u-menu {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y:  auto;
+  border-radius: 0;
+}
+.tree-sidebar-info.tree-sidebar-info-show {
+  width: 200px;
+}
+.tree-sidebar-info.tree-sidebar-info-hide {
+  width: 50px;
+}
+.portal-expand .tree-sidebar-info .u-menu-submenu .u-menu-submenu-title {
+  height: 42px;
+  line-height: 42px;
+  font-size: 14px;
+}
+#portal .tree-sidebar-info .u-menu-submenu .u-menu-submenu-title>a {
+  display: block;
+  padding: 0 !important;
+  /* position: relative; */
+}
+#portal .tree-sidebar-info .u-menu-submenu-inline .u-menu-item a {
+  font-size: 13px;
+}
+#portal .tree-sidebar-info .u-menu-submenu .u-menu-submenu-title>a i {
+  /* position: absolute;
+  left: 0; */
+  padding: 0 8px;
+  position: relative;
+  top:-14px;
+  font-size: 20px
+}
+#portal .tree-sidebar-info .u-menu-submenu .u-menu-submenu-title>a>span {
+  /* margin-left: 24px; */
+  display: inline-block;
+  max-width: calc(100% - 44px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#portal .tree-sidebar-info li ul li a .icon {
+  display: none;
+}
+/* #portal .tree-sidebar-info li ul li ul>li {
+  padding-left: 0px !important;
+} */
+#portal .tree-sidebar-info.u-menu .u-menu-sub.u-menu-inline > .u-menu-item, #portal .tree-sidebar-info.u-menu .u-menu-sub.u-menu-inline > .u-menu-submenu > .u-menu-submenu-title {
+  padding-bottom: 0;
+}
+.tree-sidebar-info.u-menu .u-menu-submenu-active,#portal .tree-sidebar-info .u-menu-submenu-active > .u-menu-submenu-title {
+  background: #ebecf0 !important;
+}
+/* #portal .u-menu-submenu-active {
+  background-color: none !important;
+}  */
+/* #portal  .u-menu  li ul li{
+  padding: 0 0 0 18px;
+} */
+#portal  .u-menu  li ul li {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#portal .tree-leaf-item>div {
+  padding-left: 0 !important;
+}
+#portal .tree-leaf-item a {
+  font-size: 14px;
+  color: #666;
+}
+#portal .tree-second-item {
+  padding-left: 0 !important;
+}
+#portal .tree-second-item>div {
+  padding-left: 0 !important;
+}
+#portal .tree-second-item>a {
+  padding-left: 0 !important;
+}
+#portal .tree-leaf-item>div>a {
+  /* padding-left: 0 !important; */
+  padding: 0 !important;
+}
+#portal .tree-sidebar-info .u-menu-item.tree-leaf-item-1 {
+  width: 100%;
+}
+#portal .u-menu .tree-second-item-2>div {
+  padding: 0 0 0 36px !important;
+  font-size: 13px;
+}
+
+#portal .u-menu .tree-leaf-item-2>div {
+  padding: 0 0 0 36px !important;
+  font-size: 13px;
+}
+#portal .u-menu .tree-second-item-3>div {
+  padding-left: 49px !important;
+  font-size: 13px;
+}
+#portal .u-menu .tree-leaf-item-3>div {
+  padding-left: 49px !important;
+  font-size: 13px;
+}
+
+#portal .u-menu .tree-leaf-item-4>div {
+  padding-left: 62px !important;
+  font-size: 13px;
+}
+
+#portal .tree-leaf-item {
+  padding-left: 8px !important;
+  height: 42px;
+  line-height: 42px;
+  color: #666;
+}
+#portal .tree-leaf-item a i {
+  padding-right: 4px;
+  font-size: 20px;
+}
+#portal .u-menu  li ul li .u-menu-submenu-title{
+  height: 32px;
+  line-height: 32px;
+}
+#portal .u-menu  li ul .tree-leaf-item {
+  height: 32px;
+  line-height: 32px;
+}
+#portal .tree-sidebar-info .u-menu-submenu-selected {
+  background: #fff;
+}
+#portal .tree-sidebar-info .tree-menu-submenus-selected {
+  background: #fff7e7;
+}
+#portal .tree-sidebar-info .u-menu-submenu-inline .u-menu-item::after,#portal .tree-sidebar-info .u-menu-inline .u-menu-item:after{
+  content: '';
+  border-right: none;
+}
+#portal .tree-sidebar-info .tree-leaf-item.u-menu-item-selected {
+    /* background: transparent; */
+}
+#portal .tree-sidebar-info .u-menu-item.tree-leaf-item.u-menu-item-selected::after{
+  border-right: none;
+
+}
+#portal .tree-sidebar-info  .u-menu-inline .u-menu-item-selected, #portal .tree-sidebar-info .u-menu-inline .u-menu-selected {
+  border: none;
+}
+#portal .u-menu  li ul .tree-leaf-item a {
+  position: relative;
+  width: 100%;
+}
+#portal .u-menu  li ul .tree-leaf-item a .shoucang {
+  display: none;
+
+}
+#portal .u-menu>li .shoucang,#portal .u-menu>li .shoucanged{
+  display: none;
+}
+#portal .u-menu  li ul .tree-leaf-item a .shoucanged {
+  color:#FFC53D;
+  display: inline-block;
+}
+#portal .u-menu  li ul .tree-leaf-item a .shoucanged,#portal .u-menu  li ul .tree-leaf-item a .shoucang {
+  position: absolute;
+  font-size: 12px;
+  margin-left: 4px;
+}
+#portal .u-menu  li ul .u-menu-item-active.tree-leaf-item a .shoucang  {
+display: inline-block;
+}
+#portal .u-menu  li ul .tree-leaf-item a span {
+  display: inline-block;
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#portal .u-menu .tree-expand-menu-item>a,#portal .u-menu .tree-expand-leaf-item>a  {
+  display: block;
+}
+#portal .tree-sidebar-info  .tree-expand-menu-item .u-menu-submenu-title {
+  padding-right: 0px;
+  text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+#portal .tree-sidebar-info  .tree-expand-menu-item .u-menu-submenu-title>a i,#portal .tree-sidebar-info  .tree-expand-leaf-item .u-menu-submenu-title>a i {
+  top: 0 !important;
+}
+#portal .u-menu .tree-expand-menu-item .u-menu-submenu-arrow::after,#portal .u-menu .tree-expand-menu-item .u-menu-submenu-arrow::before {
+  background-image: none;
+  background: none;
+}
+#portal .tree-sidebar-info  .tree-expand-leaf-item.u-menu-item-active {
+  background-color: none !important;
+}
+#portal .tree-sidebar-info.u-menu-inline .tree-expand-leaf-item.u-menu-item {
+  /* width: 100px; */
+  padding-left: 0 !important;
+}
+#portal .tree-sidebar-info.u-menu-inline .tree-expand-leaf-item>div {
+  text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* width: 50px; */
+}
+#portal .tree-sidebar-info.u-menu  .tree-expand-menu-item:hover,#portal .tree-sidebar-info.u-menu  .tree-expand-menu-item.u-menu-submenu-active{
+  background: #ebecf0 !important;
+}
+#portal .tree-sidebar-info.u-menu  .tree-expand-menu-item .u-menu-submenu-title:hover {
+  background: none !important;
+}
+#portal .tree-sidebar-info .u-menu-item.tree-leaf-item-1>div>a {
+  width: calc(100% - 16px);
+}
+#portal .tree-sidebar-info.u-menu-inline .tree-expand-leaf-item>div>a {
+  width: 100%;
+}
+#portal .tree-sidebar-info.u-menu-inline .tree-expand-leaf-item>div>a>i {
+  padding-right: 0px;
+}
+#portal .tree-sidebar-info .u-menu-item.tree-leaf-item-1>div>a>span {
+  position: relative;
+  top: -2px;
+}

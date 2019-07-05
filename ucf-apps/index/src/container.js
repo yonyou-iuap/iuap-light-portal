@@ -13,6 +13,7 @@ import HeaderCenter from 'layout/Header/HeaderCenter';
 import TopSideBar from 'layout/Sidebar/TopSideBar';
 import LeftSideBar from 'layout/Sidebar/LeftSideBar';
 import TopMoreSideBar from 'layout/Sidebar/TopMoreSideBar';
+import Menus from 'layout/Sidebar/Menus';
 
 // // 数据模型引入
 import model from './model'
@@ -30,4 +31,5 @@ export const ConnectedHeaderRight = connect( state => state.app, null)(injectInt
 export const ConnectedHeaderCenter = connect( state => state.app, null)(injectIntl(HeaderCenter));
 export const ConnectedTopSideBar = connect(state => state.app, null)(injectIntl(TopSideBar));
 export const ConnectedLeftSideBar = connect(state => state.app, null)(injectIntl(LeftSideBar));
-export const ConnectedTopMoreSideBar = connect(state => state.app, null)(injectIntl(TopMoreSideBar))
+export const ConnectedTopMoreSideBar = connect(state => state.app, null)(injectIntl(TopMoreSideBar));
+export const ConnectedMenus = connect(state => state.app, null)(injectIntl(Menus));
