@@ -191,7 +191,7 @@ class HeaderLeft extends Component {
               */}
               </div>
 
-              { isLightPortal !== 'wbalone'?
+              {/* isLightPortal !== 'wbalone'?
                 <Select
                   defaultValue='0'
                   value={selectVal}
@@ -202,7 +202,7 @@ class HeaderLeft extends Component {
                   <Option value="2">浅色主题</Option>
                   <Option value="1">深色主题</Option>
                   <Option value="0">中兴</Option>
-                </Select>:''
+                </Select>:''*/
               }
             </div>
         );

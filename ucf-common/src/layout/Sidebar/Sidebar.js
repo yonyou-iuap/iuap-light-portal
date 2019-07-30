@@ -436,31 +436,49 @@ class App extends Component {
             menu:menu
         })
 
-
+        
     }
     render() {
+        return (
+            <div>{this.getTreeType()}</div>
+        )
+        {/*return (
+          <div>
+            {
+                themeObj.sideShowPosition !=='left'?
+                // <ConnectedTopSideBar sideBarOper={sideBarOper}/> // 3级菜单顶部浮动导航
+                <ConnectedTopMoreSideBar sideBarOper={sideBarOper}/> // 4级菜单顶部浮动导航
+                :<ConnectedLeftSideBar sideBarOper={sideBarOper}/> // 3级菜单左侧固定导航
+            // :<ConnectedMenus sideBarOper={sideBarOper}/> // 4级菜单左侧抽屉固定导航
+            }
+          </div>
+        )*/}
+    }
+    getTreeType(){
+        let treeType = localStorage.getItem('sidebarType');
         let self = this;
         let isLightPortal = GROBAL_PORTAL_ID;
         const {themeObj} = this.props;
         let sideBarOper = {
-          changeAhref: self.changeAhref,
-          openTab: self.openTab,
-          handleDefault: self.handleDefault,
-          handleClick: self.handleClick,
-          collectefunc: self.collectefunc
+            changeAhref: self.changeAhref,
+            openTab: self.openTab,
+            handleDefault: self.handleDefault,
+            handleClick: self.handleClick,
+            collectefunc: self.collectefunc
         }
-        return (
-          <div>
-          {
-            themeObj.sideShowPosition !=='left'?
-            // <ConnectedTopSideBar sideBarOper={sideBarOper}/> // 3级菜单顶部浮动导航
-            <ConnectedTopMoreSideBar sideBarOper={sideBarOper}/> // 4级菜单顶部浮动导航
-            :<ConnectedLeftSideBar sideBarOper={sideBarOper}/> // 3级菜单左侧固定导航
-            // :<ConnectedMenus sideBarOper={sideBarOper}/> // 3级菜单左侧抽屉固定导航
-          }
-          </div>
-
-        )
+        if(treeType === 1 || treeType === "1"){
+            //3级菜单顶部浮动导航
+            return <ConnectedTopSideBar sideBarOper={sideBarOper}/>
+        }else if(treeType === 4 ||  treeType === "4"){
+            //4级菜单左侧抽屉固定导航
+            return <ConnectedMenus sideBarOper={sideBarOper}/>
+        }else if(treeType === 3 ||  treeType === "3"){
+            //3级菜单左侧固定导航
+            return <ConnectedLeftSideBar sideBarOper={sideBarOper}/>
+        }else{
+             // 4级菜单顶部浮动导航
+            return <ConnectedTopMoreSideBar sideBarOper={sideBarOper}/>
+        }
     }
 }
 

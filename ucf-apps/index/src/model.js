@@ -91,6 +91,10 @@ export default {
               leftSideBgImg:'',
               tabNum: 10
             }
+            let treeType = localStorage.getItem('sidebarType');
+            if(treeType === 3 ||  treeType === "3" || treeType === 4 ||  treeType === "4"){
+              themeObj.sideShowPosition = 'left'
+            }
             return themeObj;
           }
 
@@ -147,11 +151,11 @@ export default {
 
           let themeObj = {};
           let isLightPortal = GROBAL_PORTAL_ID;
-          if(isLightPortal === 'wbalone') {
+          //if(isLightPortal === 'wbalone') {
             themeObj = getWbaloneTheme();
-          }else{
-            themeObj = getLightPortalTheme(); 
-          }
+          // }else{
+          //   themeObj = getLightPortalTheme(); 
+          // }
           // 对参数进行公共处理
 
           let getLocal = cookie.load('u_locale')||'zh_CN';

@@ -4,6 +4,7 @@
 import { actions } from "mirrorx";
 import * as api from "./service";
 import { processData, getCookie, setCookie} from "utils";
+import queryString from 'query-string';
 import {loginInitI18n} from 'utils/i18n.iuap';
 
 export default {
@@ -229,7 +230,12 @@ export default {
 
                 //成功登陆
                 window.localStorage.setItem("canOpen","true");
-                window.open(`/${GROBAL_PORTAL_ID}/index.html`, "_self");
+                let searchObj = queryString.parse(window.location.search);
+                if(searchObj && searchObj.callbackUrl){
+                    window.open(decodeURIComponent(searchObj.callbackUrl), "_self")
+                }else{
+                    window.open(`/${GROBAL_PORTAL_ID}/index.html`, "_self");
+                }
             }
         },
         /**

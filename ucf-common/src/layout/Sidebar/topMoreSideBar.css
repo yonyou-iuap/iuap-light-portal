@@ -103,6 +103,7 @@ background-color: #f1f1f1;
 #portal .top-more-side-bar .u-menu-sub.u-menu-inline > .u-menu-item {
   height: 32px;
   line-height: 32px;
+  padding-left: 30px !important;
 }
 .top-more-side-bar .sub-menu-no-second {
   position: absolute;
